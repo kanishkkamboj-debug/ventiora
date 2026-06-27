@@ -1,32 +1,18 @@
 import React from 'react';
-import { AnalyticsCharts } from '../../components/admin/AnalyticsCharts';
-import { DashboardStats } from '../../components/admin/DashboardStats';
-import { mockUsers, mockPosts, mockComments } from '../../utils/mockData';
+import { AdminSidebar } from '../../components/layout/AdminSidebar';
 
 export function AdminAnalyticsPage() {
-  const stats = [
-    { label: 'Total Users', value: mockUsers.length, icon: '👥' },
-    { label: 'Total Posts', value: mockPosts.length, icon: '📝' },
-    { label: 'Total Comments', value: mockComments.length, icon: '💬' },
-    {
-      label: 'Avg. Reactions/Post',
-      value: Math.round(
-        mockPosts.reduce((s, p) => s + p.reactions.reduce((x, r) => x + r.count, 0), 0) /
-          mockPosts.length,
-      ),
-      icon: '❤️',
-    },
-  ];
-
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-on-surface">Analytics</h1>
-        <p className="text-sm text-muted-text mt-1">Platform engagement overview</p>
+    <div className="min-h-screen bg-background flex font-mono">
+      <AdminSidebar />
+      <div className="flex-1 ml-64 p-8">
+        <header className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold text-on-surface">Analytics</h1>
+        </header>
+        <div className="bg-white rounded-xl border border-outline-variant p-8 text-center text-muted-text">
+          Platform analytics coming soon.
+        </div>
       </div>
-
-      <DashboardStats stats={stats} />
-      <AnalyticsCharts />
     </div>
   );
 }

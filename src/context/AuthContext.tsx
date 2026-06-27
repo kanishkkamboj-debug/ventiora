@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import type { User } from '../types/user.types';
-import { mockCurrentUser } from '../utils/mockData';
+import { mockUsers } from '../utils/mockData';
 
 interface AuthContextValue {
   user: User | null;
@@ -13,12 +13,12 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(mockCurrentUser);
+  const [user, setUser] = useState<User | null>(mockUsers[0]);
   const [isLoading] = useState(false);
 
   const login = async (_email: string, _password: string) => {
-    // Mock: just set the user
-    setUser(mockCurrentUser);
+    // Mock: just set the user to alex_campus
+    setUser(mockUsers[0]);
   };
 
   const logout = () => {

@@ -1,77 +1,39 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { Input } from '../components/common/Input';
-import { Button } from '../components/common/Button';
-
-interface ResetFormValues {
-  newPassword: string;
-  confirmPassword: string;
-}
+import { Link } from 'react-router-dom';
+import { Input } from '../components/ui/Input';
+import { Button } from '../components/ui/Button';
 
 export function ResetPasswordPage() {
-  const navigate = useNavigate();
-  const [done, setDone] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm<ResetFormValues>();
-
-  const newPassword = watch('newPassword');
-
-  const onSubmit = async () => {
-    setDone(true);
-    setTimeout(() => navigate('/login'), 2000);
-  };
+  const [success, setSuccess] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <Link to="/" className="text-2xl font-extrabold text-primary no-underline">
-            Unfiltered Campus
-          </Link>
-          <p className="text-sm text-muted-text mt-2">Set a new password</p>
-        </div>
-
-        <div className="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-7">
-          {done ? (
-            <div className="text-center space-y-3">
-              <div className="text-4xl">✅</div>
-              <h2 className="font-bold text-on-surface">Password reset!</h2>
-              <p className="text-sm text-muted-text">Redirecting you to sign in…</p>
-            </div>
+    <div className="min-h-screen bg-surface flex items-center justify-center p-4" style={{ backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
+      <div className="max-w-[380px] w-full">
+        <div className="bg-white rounded-2xl p-8 shadow-md border border-outline-variant">
+          {!success ? (
+            <>
+              <h2 className="text-2xl font-bold text-on-surface mb-6">Choose a new password</h2>
+              <form className="flex flex-col gap-5" onSubmit={(e) => { e.preventDefault(); setSuccess(true); }}>
+                <Input label="New Password" placeholder="••••••••" type="password" helperText="Must be at least 8 characters" required />
+                <Input label="Confirm Password" placeholder="••••••••" type="password" required />
+                <Button type="submit" size="lg" className="mt-2">Set new password</Button>
+              </form>
+            </>
           ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <Input
-                label="New Password"
-                type="password"
-                placeholder="Min. 8 characters"
-                required
-                error={errors.newPassword?.message}
-                {...register('newPassword', {
-                  required: 'Password is required',
-                  minLength: { value: 8, message: 'Must be at least 8 characters' },
-                })}
-              />
-              <Input
-                label="Confirm Password"
-                type="password"
-                placeholder="Repeat new password"
-                required
-                error={errors.confirmPassword?.message}
-                {...register('confirmPassword', {
-                  required: 'Please confirm your password',
-                  validate: (val) => val === newPassword || 'Passwords do not match',
-                })}
-              />
-              <Button type="submit" className="w-full" isLoading={isSubmitting}>
-                Reset Password
-              </Button>
-            </form>
+            <div className="text-center py-4">
+              <div className="h-12 w-12 bg-primary-container/10 text-primary-container rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-on-surface mb-2">Password updated!</h2>
+              <p className="text-sm text-muted-text mb-6">
+                Your password has been successfully reset.
+              </p>
+              <Link to="/login">
+                <Button fullWidth>Continue to login</Button>
+              </Link>
+            </div>
           )}
         </div>
       </div>

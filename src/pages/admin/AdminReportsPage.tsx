@@ -1,26 +1,26 @@
 import React from 'react';
-import { ReportQueue } from '../../components/admin/ReportQueue';
-import { mockReports } from '../../utils/mockData';
+import { AdminSidebar } from '../../components/layout/AdminSidebar';
 
 export function AdminReportsPage() {
-  const pending = mockReports.filter((r) => r.status === 'PENDING').length;
-
   return (
-    <div className="space-y-5">
-      <div>
-        <h1 className="text-2xl font-bold text-on-surface">Report Queue</h1>
-        <p className="text-sm text-muted-text mt-1">
-          {pending} pending report{pending !== 1 ? 's' : ''} requiring review
-        </p>
-        {pending > 0 && mockReports.some((r) => r.reason === 'SELF_HARM_CONCERN' && r.status === 'PENDING') && (
-          <div className="mt-2 flex items-center gap-2 px-4 py-2 bg-amber-50 border border-amber-300 rounded-lg text-sm text-amber-800">
-            ⚠️ There is a self-harm concern report that needs immediate attention.
+    <div className="min-h-screen bg-background flex font-mono">
+      <AdminSidebar />
+      <div className="flex-1 ml-64 p-8">
+        <header className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold text-on-surface">Reports & Moderation</h1>
+        </header>
+        
+        <div className="bg-error/10 border border-error/20 rounded-xl p-4 mb-6 flex items-start gap-3">
+          <div className="text-error mt-0.5">⚠️</div>
+          <div>
+            <h3 className="text-error font-bold text-sm">Priority Alert: SELF_HARM_CONCERN</h3>
+            <p className="text-xs text-error/80 mt-1">1 report requires immediate review. Standard moderation queue is paused until this is resolved.</p>
           </div>
-        )}
-      </div>
+        </div>
 
-      <div className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
-        <ReportQueue reports={mockReports} />
+        <div className="bg-white rounded-xl border border-outline-variant p-8 text-center text-muted-text">
+          Report moderation tools coming soon.
+        </div>
       </div>
     </div>
   );

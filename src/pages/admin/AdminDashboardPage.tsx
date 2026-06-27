@@ -1,101 +1,81 @@
 import React from 'react';
-import { DashboardStats } from '../../components/admin/DashboardStats';
-import { mockUsers, mockPosts, mockReports, mockCategories, mockAuditLogs } from '../../utils/mockData';
-import { formatRelative } from '../../utils/dateFormat';
-import { Link } from 'react-router-dom';
-import { Button } from '../../components/common/Button';
-import { AUDIT_ACTION_LABELS } from '../../utils/constants';
+import { AdminSidebar } from '../../components/layout/AdminSidebar';
+import { Users, MessageSquare, Flag, Trash2 } from 'lucide-react';
+import { mockUsers, mockPosts } from '../../utils/mockData';
 
 export function AdminDashboardPage() {
   const stats = [
-    {
-      label: 'Total Users',
-      value: mockUsers.length,
-      icon: '👥',
-      trend: '+2 this week',
-      trendUp: true,
-    },
-    {
-      label: 'Posts Today',
-      value: mockPosts.filter((p) => {
-        const d = new Date(p.createdAt);
-        const now = new Date();
-        return d.toDateString() === now.toDateString();
-      }).length,
-      icon: '📝',
-      trend: '+5 vs yesterday',
-      trendUp: true,
-    },
-    {
-      label: 'Pending Reports',
-      value: mockReports.filter((r) => r.status === 'PENDING').length,
-      icon: '🚩',
-      trend: 'Action required',
-      trendUp: false,
-    },
-    {
-      label: 'Active Categories',
-      value: mockCategories.filter((c) => c.isActive).length,
-      icon: '🏷️',
-    },
+    { label: 'Total Users', value: mockUsers.length, icon: Users, trend: '+12.5%', isPositive: true },
+    { label: "Today's Posts", value: mockPosts.length, icon: MessageSquare, trend: '— 0.0%', isPositive: true },
+    { label: 'Pending Reports', value: '2', icon: Flag, trend: '↓ -2.1%', isPositive: true, isAlert: true },
+    { label: 'Deleted Posts', value: '45', icon: Trash2, trend: '—', isPositive: true },
   ];
 
   return (
-    <div className="space-y-7">
-      <div>
-        <h1 className="text-2xl font-bold text-on-surface">Dashboard</h1>
-        <p className="text-sm text-muted-text mt-1">Welcome back to Unfiltered Campus admin.</p>
-      </div>
+    <div className="min-h-screen bg-background flex font-mono">
+      <AdminSidebar />
+      <div className="flex-1 ml-64 p-8">
+        <header className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold text-on-surface">Dashboard Overview</h1>
+        </header>
 
-      <DashboardStats stats={stats} />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Recent activity */}
-        <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-5">
-          <h2 className="text-sm font-bold text-on-surface mb-4">Recent Audit Activity</h2>
-          <div className="space-y-3">
-            {mockAuditLogs.slice(0, 5).map((log) => (
-              <div key={log.id} className="flex items-start gap-2">
-                <span className="text-on-surface-variant text-xs mt-0.5">🔹</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {stats.map((stat, i) => {
+            const Icon = stat.icon;
+            return (
+              <div key={i} className="bg-white rounded-xl p-6 border border-outline-variant shadow-sm flex items-start justify-between">
                 <div>
-                  <p className="text-sm text-on-surface">
-                    <span className="font-semibold">{log.adminUsername}</span>{' '}
-                    {AUDIT_ACTION_LABELS[log.action]?.toLowerCase()}
+                  <p className="text-sm text-muted-text font-semibold mb-1">{stat.label}</p>
+                  <p className="text-3xl font-bold text-on-surface">{stat.value}</p>
+                  <p className={`text-xs font-medium mt-2 ${stat.isPositive ? 'text-green-600' : 'text-error'}`}>
+                    {stat.trend}
                   </p>
-                  <p className="text-xs text-muted-text">{formatRelative(log.createdAt)}</p>
+                </div>
+                <div className={`p-3 rounded-lg ${stat.isAlert ? 'bg-error/10 text-error' : 'bg-primary-container/10 text-primary-container'}`}>
+                  <Icon className="h-6 w-6" />
                 </div>
               </div>
-            ))}
-          </div>
-          <Link to="/admin/audit-log" className="text-xs text-primary hover:underline mt-4 block no-underline">
-            View full audit log →
-          </Link>
+            );
+          })}
         </div>
 
-        {/* Quick actions */}
-        <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-5">
-          <h2 className="text-sm font-bold text-on-surface mb-4">Quick Actions</h2>
-          <div className="flex flex-col gap-2">
-            <Link to="/admin/reports">
-              <Button variant="secondary" size="sm" className="w-full justify-start gap-2">
-                🚩 Review Pending Reports ({mockReports.filter((r) => r.status === 'PENDING').length})
-              </Button>
-            </Link>
-            <Link to="/admin/announcements">
-              <Button variant="secondary" size="sm" className="w-full justify-start gap-2">
-                📢 Create Announcement
-              </Button>
-            </Link>
-            <Link to="/admin/users">
-              <Button variant="secondary" size="sm" className="w-full justify-start gap-2">
-                👥 Manage Users
-              </Button>
-            </Link>
-            <Link to="/admin/analytics">
-              <Button variant="secondary" size="sm" className="w-full justify-start gap-2">
-                📊 View Analytics
-              </Button>
-            </Link>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 bg-white rounded-xl border border-outline-variant p-6 shadow-sm">
+             <h2 className="text-lg font-bold mb-4">Post Distribution by Category</h2>
+             <div className="h-64 flex items-end gap-2 pt-4 border-b border-l border-outline-variant pb-2 pl-2">
+                {/* Mock bar chart */}
+                {['Studies', 'Placements', 'Relationships', 'Memes', 'Advice'].map((cat, i) => (
+                  <div key={i} className="flex-1 flex flex-col justify-end items-center gap-2 group">
+                    <div 
+                      className="w-full bg-primary-container rounded-t-sm group-hover:bg-primary-container/80 transition-colors" 
+                      style={{ height: `${Math.random() * 80 + 20}%` }}
+                    ></div>
+                    <span className="text-xs text-muted-text -rotate-45 origin-top-left mt-2 whitespace-nowrap">{cat}</span>
+                  </div>
+                ))}
+             </div>
+          </div>
+          
+          <div className="bg-white rounded-xl border border-outline-variant p-6 shadow-sm flex flex-col">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-bold">Recent Activity</h2>
+              <button className="text-xs text-primary-container font-semibold hover:underline">View All</button>
+            </div>
+            <div className="flex-1 space-y-4">
+              {[
+                { text: 'Post flagged in Campus Life — Reason: Harassment', time: '2 mins ago', type: 'alert' },
+                { text: 'Auto-mod deleted a comment — Spam filter', time: '15 mins ago', type: 'mod' },
+                { text: 'Admin updated platform guidelines', time: '1 hour ago', type: 'info' }
+              ].map((activity, i) => (
+                <div key={i} className="flex gap-3 text-sm">
+                  <div className={`mt-0.5 w-2 h-2 rounded-full shrink-0 ${activity.type === 'alert' ? 'bg-error' : activity.type === 'mod' ? 'bg-muted-text' : 'bg-primary-container'}`}></div>
+                  <div>
+                    <p className="text-on-surface/90 font-medium">{activity.text}</p>
+                    <p className="text-xs text-muted-text mt-1">{activity.time}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

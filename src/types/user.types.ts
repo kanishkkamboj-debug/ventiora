@@ -4,13 +4,12 @@ export interface User {
   id: string;
   username: string;
   email: string;
-  avatarUrl?: string;
+  avatar_url?: string;
   bio?: string;
   role: Role;
-  status: 'ACTIVE' | 'BANNED' | 'SUSPENDED';
-  createdAt: string;
-  postCount: number;
-  commentCount: number;
+  is_banned: boolean;
+  is_suspended: boolean;
+  created_at: string;
 }
 
 export interface AnonymousAuthor {
