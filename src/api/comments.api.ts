@@ -1,8 +1,8 @@
 import { mockComments } from '../utils/mockData';
 
-export const commentsApi = {
-  getByPost: async (postId: string) => {
-    const comments = mockComments.filter(c => c.post_id === postId);
-    return { data: { content: comments } };
-  },
+export const getCommentsByPostId = async (postId: string) => {
+  // Simulate network delay
+  await new Promise(resolve => setTimeout(resolve, 500));
+  const postComments = mockComments.filter(c => c.postId === postId);
+  return { data: { content: postComments } };
 };

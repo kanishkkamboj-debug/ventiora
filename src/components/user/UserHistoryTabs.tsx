@@ -15,10 +15,10 @@ export function UserHistoryTabs({ userId, username: _username }: UserHistoryTabs
   const [tab, setTab] = useState<Tab>('posts');
 
   const userPosts = mockPosts.filter(
-    (p) => !p.is_anonymous && p.user_id === userId,
+    (p) => !p.author.isAnonymous && p.author.user.id === userId,
   );
   const userComments = mockComments.filter(
-    (c) => !c.is_anonymous && c.user_id === userId,
+    (c) => !c.author.isAnonymous && c.author.user.id === userId,
   );
 
   return (
@@ -62,7 +62,9 @@ export function UserHistoryTabs({ userId, username: _username }: UserHistoryTabs
                 className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4"
               >
                 <p className="text-sm font-serif text-on-surface">{c.content}</p>
-                <p className="text-xs text-muted-text mt-2">{formatRelative(c.created_at)}</p>
+                <p className="text-xs text-muted-text mt-2 font-serif">
+                  {new Date(c.createdAt).toLocaleDateString()}
+                </p>
               </div>
             ))
           )}

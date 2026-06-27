@@ -4,17 +4,16 @@ import { Link } from 'react-router-dom';
 import { Avatar } from '../ui/Avatar';
 import { formatDistanceToNow } from '../../utils/date';
 import { motion } from 'framer-motion';
+import type { Post } from '../../types/post.types';
 
 interface PostCardProps {
-  post: any; // Type to be refined
+  post: Post;
   compact?: boolean;
 }
 
 export function PostCard({ post, compact = false }: PostCardProps) {
-  // STRICT ANONYMITY LOGIC
-  // If a post is anonymous, NEVER display the real username.
-  const isAnonymous = post.is_anonymous === true;
-  const displayName = isAnonymous ? 'Anonymous' : `@${post.author_username}`;
+  const isAnonymous = post.isAnonymous;
+  const displayName = isAnonymous ? 'Anonymous' : `@${!post.author.isAnonymous ? post.author.user.username : 'Anonymous'}`;
 
   return (
     <motion.article 
@@ -30,7 +29,7 @@ export function PostCard({ post, compact = false }: PostCardProps) {
             </div>
           ) : (
             <div className="shrink-0">
-              <Avatar avatarUrl={undefined} username={post.author_username ?? undefined} size="sm" />
+              <Avatar avatarUrl={undefined} username={!post.author.isAnonymous ? post.author.user.username : undefined} size="sm" />
             </div>
           )}
           
@@ -39,7 +38,7 @@ export function PostCard({ post, compact = false }: PostCardProps) {
               {displayName}
             </span>
             <span className="font-label-sm text-label-sm text-muted-text">
-              {formatDistanceToNow(new Date(post.created_at))} • {post.category_name} {post.category_emoji}
+              {formatDistanceToNow(new Date(post.createdAt))} • {post.category.name} {post.category.emoji}
             </span>
           </div>
         </div>
@@ -51,8 +50,8 @@ export function PostCard({ post, compact = false }: PostCardProps) {
 
       <Link to={`/posts/${post.id}`} className="block">
         <h2 className="font-headline-md text-headline-md text-on-background mb-2 flex items-center gap-2">
-          {post.is_pinned && <Pin className="h-4 w-4 text-primary shrink-0" />}
-          {post.is_featured && <Star className="h-4 w-4 text-secondary shrink-0" />}
+          {post.isPinned && <Pin className="h-4 w-4 text-primary shrink-0" />}
+          {post.isFeatured && <Star className="h-4 w-4 text-secondary shrink-0" />}
           <span className="line-clamp-2">{post.title}</span>
         </h2>
         
@@ -66,16 +65,16 @@ export function PostCard({ post, compact = false }: PostCardProps) {
       <div className="flex items-center gap-4 text-muted-text font-label-sm text-label-sm mt-2">
         <motion.button 
           whileTap={{ scale: 0.9 }}
-          className="flex items-center gap-1.5 hover:text-primary transition-colors group/btn"
+          className={`flex items-center gap-1.5 hover:text-primary transition-colors group/btn ${post.reactions[0]?.reacted ? 'text-primary' : ''}`}
         >
-          <ThumbsUp className="w-4 h-4 group-hover/btn:fill-primary" /> 
-          <span>12</span>
+          <ThumbsUp className={`w-4 h-4 group-hover/btn:fill-primary ${post.reactions[0]?.reacted ? 'fill-primary' : ''}`} /> 
+          <span>{post.reactions[0]?.count || 0}</span>
         </motion.button>
         <Link to={`/posts/${post.id}`} className="flex items-center gap-1.5 hover:text-primary transition-colors group/btn">
           <motion.div whileTap={{ scale: 0.9 }}>
              <MessageCircle className="w-4 h-4 group-hover/btn:fill-primary" />
           </motion.div>
-          <span>4 Comments</span>
+          <span>{post.commentCount} Comments</span>
         </Link>
         <motion.button 
           whileTap={{ scale: 0.9 }}

@@ -9,37 +9,46 @@ import { useAuth } from '../../hooks/useAuth';
 import { cn } from '../../utils/cn';
 
 interface CommentItemProps {
-  comment: any; // Using any for now to handle raw mock structure
-  isReply?: boolean;
+  comment: Comment;
+  level?: number;
 }
 
-export function CommentItem({ comment, isReply = false }: CommentItemProps) {
+export function CommentItem({ comment, level = 0 }: CommentItemProps) {
   const [showReply, setShowReply] = useState(false);
   const { user } = useAuth();
 
-  const authorName = comment.is_anonymous ? 'Anonymous' : comment.author_username;
-  const authorAvatar = comment.is_anonymous ? undefined : comment.author_avatar_url;
+  const isAnonymous = comment.author.isAnonymous;
+  const displayName = isAnonymous ? 'Anonymous' : `@${comment.author.user.username}`;
+  const isMaxDepth = level >= 3;
 
   return (
-    <div className={cn('flex gap-3', isReply && 'ml-10 mt-3')}>
-      <Avatar
-        avatarUrl={authorAvatar}
-        username={authorName}
-        isAnonymous={comment.is_anonymous}
-        size="sm"
-      />
+    <div className={`flex gap-3 ${level > 0 ? 'mt-4' : 'mt-6'} animate-fadeIn`}>
+      <div className="shrink-0">
+        {isAnonymous ? (
+          <div className="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center">
+            <span className="text-on-surface-variant font-medium text-sm">?</span>
+          </div>
+        ) : (
+          <Avatar username={comment.author.user.username} size="sm" />
+        )}
+      </div>
+      
       <div className="flex-1 min-w-0">
-        <div className="bg-surface-container rounded-xl px-4 py-3">
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-sm font-semibold text-on-surface">{authorName}</span>
-            <span className="text-xs text-muted-text">{formatRelative(comment.created_at)}</span>
+        <div className="bg-surface rounded-2xl p-4 border border-outline-variant shadow-sm">
+          <div className="flex items-baseline justify-between gap-2 mb-2">
+            <span className={`font-semibold text-sm ${isAnonymous ? 'text-on-surface-variant' : 'text-on-surface'}`}>
+              {displayName}
+            </span>
+            <span className="text-xs text-on-surface-variant">
+              {formatRelative(comment.createdAt)}
+            </span>
           </div>
           <p className="text-sm text-on-surface leading-relaxed font-serif">{comment.content}</p>
         </div>
 
         {/* Actions */}
         <div className="flex items-center gap-2 mt-1.5 ml-2">
-          {!isReply && user && (
+          {level === 0 && user && (
             <button
               onClick={() => setShowReply((o) => !o)}
               className="text-xs text-muted-text hover:text-primary transition-colors"
@@ -60,7 +69,7 @@ export function CommentItem({ comment, isReply = false }: CommentItemProps) {
         {showReply && (
           <div className="mt-2">
             <CommentForm
-              postId={comment.post_id}
+              postId={comment.postId}
               parentId={comment.id}
               onCancel={() => setShowReply(false)}
               compact
@@ -69,10 +78,10 @@ export function CommentItem({ comment, isReply = false }: CommentItemProps) {
         )}
 
         {/* Nested replies */}
-        {comment.replies && comment.replies.length > 0 && (
+        {comment.replies && comment.replies.length > 0 && !isMaxDepth && (
           <div className="mt-1">
-            {comment.replies.map((reply: any) => (
-              <CommentItem key={reply.id} comment={reply} isReply />
+            {comment.replies.map((reply: Comment) => (
+              <CommentItem key={reply.id} comment={reply} level={level + 1} />
             ))}
           </div>
         )}

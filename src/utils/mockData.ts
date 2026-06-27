@@ -50,87 +50,92 @@ export const mockTags = [
   { id: 'tag-3', name: 'Exams', slug: 'exams' }
 ];
 
-export const mockNotifications = [
-  { id: 'notif-1', user_id: mockUsers[0].id, type: 'COMMENT', title: 'New comment', message: 'Someone replied to your post', is_read: false, created_at: new Date().toISOString() },
-  { id: 'notif-2', user_id: mockUsers[0].id, type: 'REACTION', title: 'New reaction', message: 'Someone reacted to your comment', is_read: true, created_at: new Date().toISOString() }
+import type { Post } from '../types/post.types';
+import type { Comment } from '../types/comment.types';
+import type { Notification } from '../types/notification.types';
+
+export const mockNotifications: Notification[] = [
+  { id: 'notif-1', actorUsername: mockUsers[0].username, type: 'COMMENT_ON_POST', message: 'Someone replied to your post', isRead: false, createdAt: new Date().toISOString(), targetType: 'POST', targetId: 'post-1' },
+  { id: 'notif-2', actorUsername: mockUsers[0].username, type: 'REACTION_ON_COMMENT', message: 'Someone reacted to your comment', isRead: true, createdAt: new Date().toISOString(), targetType: 'COMMENT', targetId: 'comment-1' }
 ];
 
-export const mockPosts = [
+export const mockPosts: Post[] = [
   {
     id: 'post-1',
-    user_id: mockUsers[0].id,
-    category_id: 'cat-1',
     title: 'How to survive finals week with zero sleep',
     content: 'Just kidding, get some sleep. But really, any tips for staying awake?',
-    is_anonymous: false,
-    is_pinned: true,
-    is_featured: true,
-    comments_locked: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    author_username: mockUsers[0].username,
-    category_name: 'Studies',
-    category_emoji: '📚',
-    view_count: 1400
+    author: { isAnonymous: false, user: mockUsers[0] },
+    category: mockCategories[0],
+    tags: [mockTags[2]],
+    isAnonymous: false,
+    isPinned: true,
+    isFeatured: true,
+    isLocked: false,
+    viewCount: 1400,
+    commentCount: 2,
+    reactions: [{ type: 'LIKE', count: 12, reacted: false }],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: 'post-2',
-    user_id: mockUsers[1].id,
-    category_id: 'cat-2',
     title: 'FAANG Interview Tips',
     content: 'I just passed my technical screen. Happy to answer questions!',
-    is_anonymous: false,
-    is_pinned: false,
-    is_featured: true,
-    comments_locked: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    author_username: mockUsers[1].username,
-    category_name: 'Placements',
-    category_emoji: '💼',
-    view_count: 3250
+    author: { isAnonymous: false, user: mockUsers[1] },
+    category: mockCategories[1],
+    tags: [mockTags[0], mockTags[1]],
+    isAnonymous: false,
+    isPinned: false,
+    isFeatured: true,
+    isLocked: false,
+    viewCount: 3250,
+    commentCount: 1,
+    reactions: [{ type: 'LIKE', count: 45, reacted: true }],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: 'post-3',
-    user_id: mockUsers[0].id,
-    category_id: 'cat-3',
     title: 'Feeling completely burnt out',
     content: 'Is anyone else just tired of everything right now?',
-    is_anonymous: true,
-    is_pinned: false,
-    is_featured: false,
-    comments_locked: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    author_username: null,
-    category_name: 'Mental Health',
-    category_emoji: '😔',
-    view_count: 850
+    author: { isAnonymous: true, displayName: 'Anonymous' },
+    category: mockCategories[2],
+    tags: [],
+    isAnonymous: true,
+    isPinned: false,
+    isFeatured: false,
+    isLocked: false,
+    viewCount: 850,
+    commentCount: 1,
+    reactions: [{ type: 'LOVE', count: 5, reacted: false }],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   }
 ];
 
-export const mockComments = [
+export const mockComments: Comment[] = [
   {
     id: 'comment-1',
-    post_id: 'post-1',
-    user_id: mockUsers[1].id,
-    parent_id: null,
+    postId: 'post-1',
+    author: { isAnonymous: false, user: mockUsers[1] },
+    parentId: undefined,
     content: 'Drink lots of water and take 20 min naps!',
-    is_anonymous: false,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    author_username: mockUsers[1].username
+    isAnonymous: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    replyCount: 0,
+    replies: []
   },
   {
     id: 'comment-2',
-    post_id: 'post-3',
-    user_id: mockUsers[0].id,
-    parent_id: null,
+    postId: 'post-3',
+    author: { isAnonymous: true, displayName: 'Anonymous' },
+    parentId: undefined,
     content: 'Hang in there, man. You are not alone.',
-    is_anonymous: true,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    author_username: null
+    isAnonymous: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    replyCount: 0,
+    replies: []
   }
 ];
-

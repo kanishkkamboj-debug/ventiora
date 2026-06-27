@@ -5,7 +5,7 @@ import { NotificationItem } from './NotificationItem';
 
 export function NotificationBell() {
   const [open, setOpen] = useState(false);
-  const unread = mockNotifications.filter((n: any) => !n.is_read).length;
+  const unread = mockNotifications.filter((n) => !n.isRead).length;
 
   return (
     <div className="relative">
@@ -42,7 +42,7 @@ export function NotificationBell() {
               ) : (
                 mockNotifications
                   .slice(0, 5)
-                  .map((n: any) => <NotificationItem key={n.id} notification={n} />)
+                  .map((n) => <NotificationItem key={n.id} notification={n} />)
               )}
             </div>
             <div className="px-4 py-2 border-t border-outline-variant text-center">

@@ -1,39 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { mockPosts, mockComments } from '../utils/mockData';
 import { Avatar } from '../components/ui/Avatar';
+import { CommentItem } from '../components/comment/CommentItem';
+import { CommentForm } from '../components/comment/CommentForm';
 import { formatDistanceToNow } from '../utils/date';
-import { ThumbsUp, MessageCircle, ArrowLeft, Bookmark, UserX, Pin, Star, MoreHorizontal, Send } from 'lucide-react';
+import { ArrowLeft, MessageCircle, ThumbsUp, Bookmark, Pin, Star, MoreHorizontal, Send, UserX } from 'lucide-react';
+import { ReportButton } from '../components/report/ReportButton';
+import { useAuth } from '../hooks/useAuth';
 
 export function PostDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const { user } = useAuth();
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  
   const post = mockPosts.find(p => p.id === id);
-  const comments = mockComments.filter(c => c.post_id === id);
-
+  const postComments = mockComments.filter(c => c.postId === id);
+  
   if (!post) {
     return (
       <PageWrapper>
-        <div className="text-center py-20">
-          <h2 className="text-2xl font-bold mb-4">Post not found</h2>
-          <Link to="/" className="text-primary hover:underline">Return to Home</Link>
+        <div className="text-center py-12">
+          <h2 className="text-xl font-bold text-on-surface">Post not found</h2>
+          <Link to="/" className="text-primary hover:underline mt-4 inline-block">
+            Return home
+          </Link>
         </div>
       </PageWrapper>
     );
   }
 
-  // Strict anonymity check
-  const isAnonymous = post.is_anonymous === true;
-  const displayName = isAnonymous ? 'Anonymous' : `@${post.author_username}`;
-
+  const isAnonymous = post.isAnonymous;
+  const displayName = isAnonymous ? 'Anonymous' : `@${!post.author.isAnonymous ? post.author.user.username : 'Anonymous'}`;
+  
   return (
     <PageWrapper>
-      <div className="max-w-3xl mx-auto w-full">
-        <Link to="/" className="inline-flex items-center gap-2 font-label-md text-label-md text-muted-text hover:text-on-surface mb-6 transition-colors">
-          <ArrowLeft className="h-4 w-4" /> Back to feed
+      <div className="max-w-3xl mx-auto py-6 px-4 sm:px-6">
+        <Link 
+          to="/" 
+          className="inline-flex items-center gap-2 text-sm text-muted-text hover:text-on-surface mb-6 transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to feed
         </Link>
         
-        {/* Main Post Card */}
         <article className="bg-surface rounded-xl p-6 sm:p-8 shadow-sm border border-border mb-8">
           <div className="flex justify-between items-start mb-6">
             <div className="flex items-center gap-4">
@@ -43,7 +54,7 @@ export function PostDetailPage() {
                 </div>
               ) : (
                 <div className="shrink-0 w-10 h-10">
-                  <Avatar avatarUrl={undefined} username={post.author_username ?? undefined} size="sm" />
+                  <Avatar username={!post.author.isAnonymous ? post.author.user.username : undefined} size="md" />
                 </div>
               )}
               
@@ -52,7 +63,7 @@ export function PostDetailPage() {
                   {displayName}
                 </span>
                 <span className="font-label-sm text-label-sm text-muted-text">
-                  {formatDistanceToNow(new Date(post.created_at))} • {post.category_name} {post.category_emoji}
+                  {formatDistanceToNow(new Date(post.createdAt))} • {post.category.name} {post.category.emoji}
                 </span>
               </div>
             </div>
@@ -63,8 +74,8 @@ export function PostDetailPage() {
           </div>
           
           <h1 className="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-on-background mb-6 flex items-center gap-3">
-            {post.is_pinned && <Pin className="h-6 w-6 text-primary shrink-0" />}
-            {post.is_featured && <Star className="h-6 w-6 text-secondary shrink-0" />}
+            {post.isPinned && <Pin className="h-6 w-6 text-primary shrink-0" />}
+            {post.isFeatured && <Star className="h-6 w-6 text-secondary shrink-0" />}
             {post.title}
           </h1>
           
@@ -75,11 +86,11 @@ export function PostDetailPage() {
           <div className="flex items-center gap-6 mt-8 pt-6 border-t border-border font-label-md text-label-md text-muted-text">
             <button className="flex items-center gap-2 hover:text-primary transition-colors group">
               <ThumbsUp className="w-5 h-5 group-hover:fill-primary" />
-              <span>12 Likes</span>
+              <span>{post.reactions[0]?.count || 0} Likes</span>
             </button>
             <div className="flex items-center gap-2 hover:text-primary transition-colors">
               <MessageCircle className="w-5 h-5" />
-              <span>{comments.length} Comments</span>
+              <span>{post.commentCount} Comments</span>
             </div>
             <button className="flex items-center gap-2 hover:text-primary transition-colors ml-auto group">
               <Bookmark className="w-5 h-5 group-hover:fill-primary" />
@@ -94,7 +105,7 @@ export function PostDetailPage() {
           
           <div className="flex gap-4 mb-10">
             <div className="shrink-0 w-10 h-10 hidden sm:block">
-              <Avatar avatarUrl={undefined} username="currentUser" size="sm" />
+              <Avatar username={user?.username} size="sm" />
             </div>
             <div className="flex-1 flex flex-col gap-3">
               <textarea 
@@ -121,50 +132,9 @@ export function PostDetailPage() {
           </div>
 
           <div className="space-y-8">
-            {comments.map(comment => {
-              const isCommentAnonymous = comment.is_anonymous === true;
-              return (
-                <div key={comment.id} className="flex gap-4 group">
-                  <div className="shrink-0 w-8 h-8">
-                    {isCommentAnonymous ? (
-                      <div className="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
-                        <UserX className="w-4 h-4" />
-                      </div>
-                    ) : (
-                      <Avatar avatarUrl={undefined} username={comment.author_username ?? undefined} size="sm" />
-                    )}
-                  </div>
-                  
-                  <div className="flex-1">
-                    <div className="bg-surface-container-low rounded-2xl rounded-tl-none p-4 border border-border">
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <div className="flex items-center gap-2">
-                          <span className={`font-label-sm text-label-sm font-semibold ${isCommentAnonymous ? 'text-muted-text' : 'text-on-surface'}`}>
-                            {isCommentAnonymous ? 'Anonymous' : `@${comment.author_username}`}
-                          </span>
-                          <span className="text-muted-text text-xs">•</span>
-                          <span className="font-label-sm text-label-sm text-muted-text">
-                            {formatDistanceToNow(new Date(comment.created_at))}
-                          </span>
-                        </div>
-                      </div>
-                      <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                        {comment.content}
-                      </p>
-                    </div>
-                    
-                    <div className="flex items-center gap-4 mt-2 ml-2">
-                      <button className="flex items-center gap-1.5 font-label-sm text-label-sm text-muted-text hover:text-primary transition-colors">
-                        <ThumbsUp className="w-3.5 h-3.5" /> 2
-                      </button>
-                      <button className="font-label-sm text-label-sm text-muted-text hover:text-primary transition-colors">
-                        Reply
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {postComments.map(comment => (
+              <CommentItem key={comment.id} comment={comment} level={0} />
+            ))}
           </div>
         </div>
       </div>

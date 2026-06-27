@@ -5,8 +5,8 @@ import { mockPosts } from '../../utils/mockData';
 
 function TrendingWidget() {
   const topPosts = [...mockPosts]
-    .sort((a, b) => b.view_count - a.view_count)
-    .slice(0, 4);
+    .sort((a, b) => b.viewCount - a.viewCount)
+    .slice(0, 3);
 
   return (
     <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4">
@@ -26,9 +26,9 @@ function TrendingWidget() {
               >
                 {post.title}
               </Link>
-              <p className="text-xs text-muted-text mt-0.5">
-                {post.view_count?.toLocaleString()} views
-              </p>
+              <span className="text-xs text-muted-text mt-1 block">
+                {post.viewCount.toLocaleString()} views
+              </span>
             </div>
           </li>
         ))}

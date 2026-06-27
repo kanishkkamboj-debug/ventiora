@@ -11,7 +11,7 @@ export function SearchPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>();
   
   const results = mockPosts.filter(post => {
-    const matchesCategory = selectedCategory ? post.category_id === selectedCategory : true;
+    const matchesCategory = selectedCategory === 'all' || !selectedCategory ? true : post.category.id === selectedCategory;
     const matchesQuery = query ? post.title.toLowerCase().includes(query.toLowerCase()) || post.content.toLowerCase().includes(query.toLowerCase()) : true;
     return matchesCategory && matchesQuery;
   });

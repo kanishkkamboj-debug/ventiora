@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { mockCategories } from '../utils/mockData';
-import { Upload } from 'lucide-react';
+import { FileUpload } from '../components/ui/FileUpload';
 
 export function CreatePostPage({ editMode }: { editMode?: boolean }) {
   return (
@@ -56,13 +56,7 @@ export function CreatePostPage({ editMode }: { editMode?: boolean }) {
             </div>
             
             {/* Image Upload Area */}
-            <div className="border-2 border-dashed border-border rounded-xl p-8 flex flex-col items-center justify-center bg-surface-container-lowest hover:bg-surface-container-low transition-colors cursor-pointer group">
-              <div className="w-12 h-12 bg-surface-container-low rounded-full flex items-center justify-center text-muted-text group-hover:text-primary transition-colors mb-3">
-                <Upload className="w-6 h-6" />
-              </div>
-              <p className="font-label-md text-label-md font-semibold text-on-surface mb-1">Drag & drop an image</p>
-              <p className="font-label-sm text-label-sm text-muted-text">or click to browse</p>
-            </div>
+            <FileUpload onFileSelect={(file) => console.log('File selected:', file.name)} />
             
             <div className="bg-surface-container-low p-4 rounded-xl border border-border flex items-center justify-between">
               <div className="flex flex-col max-w-[80%]">

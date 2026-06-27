@@ -11,7 +11,7 @@ export function HomePage() {
   const navigate = useNavigate();
   
   const filteredPosts = selectedCategory 
-    ? mockPosts.filter(p => p.category_id === selectedCategory)
+    ? mockPosts.filter(p => p.category.id === selectedCategory)
     : mockPosts;
 
   return (

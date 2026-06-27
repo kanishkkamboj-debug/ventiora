@@ -11,7 +11,7 @@ export function ProfilePage() {
   const [activeTab, setActiveTab] = useState<'posts' | 'comments'>('posts');
   
   const user = mockUsers.find(u => u.username === username);
-  const userPosts = mockPosts.filter(p => p.user_id === user?.id && !p.is_anonymous);
+  const userPosts = mockPosts.filter(p => !p.author.isAnonymous && p.author.user.id === user?.id);
   
   const isCurrentUser = username === 'alex_campus'; // Mock current user logic
   
