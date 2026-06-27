@@ -1,35 +1,45 @@
-import React from 'react';
-import { cn } from './Button';
+import React, { forwardRef } from 'react';
+import { cn } from '../../utils/cn';
 
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   error?: string;
-  helperText?: string;
+  hint?: string;
 }
 
-export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, label, error, helperText, ...props }, ref) => {
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ label, error, hint, className, id, ...props }, ref) => {
+    const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
+
     return (
-      <div className="w-full flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1">
         {label && (
-          <label className="text-sm font-semibold text-on-surface">
+          <label htmlFor={inputId} className="text-sm font-medium text-on-surface">
             {label}
+            {props.required && <span className="text-error ml-1">*</span>}
           </label>
         )}
         <textarea
           ref={ref}
+          id={inputId}
           className={cn(
-            "flex min-h-[100px] w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface transition-colors placeholder:text-muted-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container disabled:cursor-not-allowed disabled:opacity-50",
-            error && "border-error focus-visible:ring-error",
-            className
+            'w-full bg-surface-container-lowest border rounded-md px-3 py-2 text-sm text-on-surface',
+            'placeholder:text-on-surface-variant/60 resize-y min-h-[120px]',
+            'focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15',
+            'transition-colors duration-150',
+            'disabled:opacity-50 disabled:cursor-not-allowed',
+            error
+              ? 'border-error focus:border-error focus:ring-error/15'
+              : 'border-outline-variant',
+            className,
           )}
           {...props}
         />
-        {error && <p className="text-sm text-error">{error}</p>}
-        {helperText && !error && <p className="text-sm text-muted-text">{helperText}</p>}
+        {error && <p className="text-xs text-error font-medium">{error}</p>}
+        {hint && !error && <p className="text-xs text-muted-text">{hint}</p>}
       </div>
     );
-  }
+  },
 );
 
 Textarea.displayName = 'Textarea';

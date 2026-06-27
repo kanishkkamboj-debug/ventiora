@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { Post } from '../../types/post.types';
-import { Badge } from '../common/Badge';
-import { Button } from '../common/Button';
+import { Badge } from '../ui/Badge';
+import { Button } from '../ui/Button';
 import { formatShort } from '../../utils/dateFormat';
 import { cn } from '../../utils/cn';
 

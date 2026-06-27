@@ -45,7 +45,7 @@ export function AdminUsersPage() {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8">
-                        <Avatar user={u as any} size="sm" />
+                        <Avatar avatarUrl={u?.avatar_url} username={u?.username} size="sm" />
                       </div>
                       <span className="font-bold text-on-surface">@{u.username}</span>
                     </div>

@@ -11,7 +11,7 @@ interface UserHistoryTabsProps {
   username: string;
 }
 
-export function UserHistoryTabs({ userId, username }: UserHistoryTabsProps) {
+export function UserHistoryTabs({ userId, username: _username }: UserHistoryTabsProps) {
   const [tab, setTab] = useState<Tab>('posts');
 
   const userPosts = mockPosts.filter(

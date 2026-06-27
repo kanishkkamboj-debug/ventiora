@@ -1,11 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageWrapper } from '../components/layout/PageWrapper';
-import { Input } from '../components/ui/Input';
-import { Textarea } from '../components/ui/Textarea';
-import { Button } from '../components/ui/Button';
-import { Switch } from '../components/ui/Switch';
 import { mockCategories } from '../utils/mockData';
-import { Upload, X } from 'lucide-react';
+import { Upload } from 'lucide-react';
 
 export function CreatePostPage({ editMode }: { editMode?: boolean }) {
   return (

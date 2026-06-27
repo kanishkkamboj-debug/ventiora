@@ -1,25 +1,30 @@
 import React from 'react';
 import { AdminSidebar } from '../../components/layout/AdminSidebar';
+import { Flag, AlertTriangle } from 'lucide-react';
 
 export function AdminReportsPage() {
   return (
-    <div className="min-h-screen bg-background flex font-mono">
+    <div className="min-h-screen bg-background flex font-headline-md">
       <AdminSidebar />
       <div className="flex-1 ml-64 p-8">
         <header className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-on-surface">Reports & Moderation</h1>
+          <h1 className="font-headline-lg text-headline-lg font-bold text-on-surface">Reports & Moderation</h1>
         </header>
         
         <div className="bg-error/10 border border-error/20 rounded-xl p-4 mb-6 flex items-start gap-3">
-          <div className="text-error mt-0.5">⚠️</div>
+          <div className="text-error mt-0.5"><AlertTriangle className="w-5 h-5" /></div>
           <div>
-            <h3 className="text-error font-bold text-sm">Priority Alert: SELF_HARM_CONCERN</h3>
-            <p className="text-xs text-error/80 mt-1">1 report requires immediate review. Standard moderation queue is paused until this is resolved.</p>
+            <h3 className="text-error font-bold font-label-md text-label-md">Priority Alert: SELF_HARM_CONCERN</h3>
+            <p className="font-body-sm text-body-sm text-error mt-1">1 report requires immediate review. Standard moderation queue is paused until this is resolved.</p>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-outline-variant p-8 text-center text-muted-text">
-          Report moderation tools coming soon.
+        <div className="bg-surface rounded-xl border border-border p-12 text-center text-muted-text flex flex-col items-center justify-center">
+          <div className="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mb-4">
+             <Flag className="w-8 h-8 text-primary" />
+          </div>
+          <h2 className="font-headline-md text-headline-md font-bold text-on-surface mb-2">Report moderation coming soon</h2>
+          <p className="font-body-md text-body-md max-w-md mx-auto">Review user reports, take action on posts, and manage platform safety.</p>
         </div>
       </div>
     </div>

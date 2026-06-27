@@ -36,7 +36,7 @@ export function ProfilePage() {
           
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             <div className="shrink-0">
-              <Avatar user={user} size="lg" className="h-16 w-16 text-2xl" />
+              <Avatar avatarUrl={user?.avatar_url} username={user?.username} size="lg" className="h-16 w-16 text-2xl" />
             </div>
             <div className="flex-1 text-center sm:text-left mt-2 sm:mt-0">
               <h1 className="font-headline-lg text-headline-lg font-bold text-on-surface mb-1">@{user.username}</h1>

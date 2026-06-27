@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import type { Comment } from '../../types/comment.types';
-import { Avatar } from '../common/Avatar';
-import { Button } from '../common/Button';
+import { Avatar } from '../ui/Avatar';
+import { Button } from '../ui/Button';
 import { formatRelative } from '../../utils/dateFormat';
 import { CommentForm } from './CommentForm';
 import { ReportButton } from '../report/ReportButton';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import { cn } from '../../utils/cn';
 
 interface CommentItemProps {

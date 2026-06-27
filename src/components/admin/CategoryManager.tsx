@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import type { Category } from '../../types/category.types';
-import { Switch } from '../common/Switch';
-import { Button } from '../common/Button';
-import { Input } from '../common/Input';
+import { Switch } from '../ui/Switch';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
 import { cn } from '../../utils/cn';
 
 interface CategoryManagerProps {

@@ -1,51 +1,60 @@
-import React from 'react';
-import { cn } from './Button';
+import React, { forwardRef } from 'react';
+import { cn } from '../../utils/cn';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
-  helperText?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  hint?: string;
+  leftAddon?: React.ReactNode;
+  rightAddon?: React.ReactNode;
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, error, helperText, leftIcon, rightIcon, ...props }, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ label, error, hint, leftAddon, rightAddon, className, id, ...props }, ref) => {
+    const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
+
     return (
-      <div className="w-full flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1">
         {label && (
-          <label className="text-sm font-semibold text-on-surface">
+          <label
+            htmlFor={inputId}
+            className="text-sm font-medium text-on-surface"
+          >
             {label}
+            {props.required && <span className="text-error ml-1">*</span>}
           </label>
         )}
-        <div className="relative">
-          {leftIcon && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-text">
-              {leftIcon}
-            </div>
+        <div className="relative flex items-center">
+          {leftAddon && (
+            <span className="absolute left-3 text-on-surface-variant">{leftAddon}</span>
           )}
           <input
             ref={ref}
+            id={inputId}
             className={cn(
-              "flex h-11 w-full rounded-xl border border-outline-variant bg-surface px-4 py-2 text-sm text-on-surface transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container disabled:cursor-not-allowed disabled:opacity-50",
-              leftIcon && "pl-10",
-              rightIcon && "pr-10",
-              error && "border-error focus-visible:ring-error",
-              className
+              'w-full bg-surface-container-lowest border rounded-md px-3 py-2 text-sm text-on-surface',
+              'placeholder:text-on-surface-variant/60',
+              'focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15',
+              'transition-colors duration-150',
+              error
+                ? 'border-error focus:border-error focus:ring-error/15'
+                : 'border-outline-variant',
+              leftAddon && 'pl-9',
+              rightAddon && 'pr-9',
+              'disabled:opacity-50 disabled:cursor-not-allowed',
+              className,
             )}
             {...props}
           />
-          {rightIcon && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-text">
-              {rightIcon}
-            </div>
+          {rightAddon && (
+            <span className="absolute right-3 text-on-surface-variant">{rightAddon}</span>
           )}
         </div>
-        {error && <p className="text-sm text-error">{error}</p>}
-        {helperText && !error && <p className="text-sm text-muted-text">{helperText}</p>}
+        {error && <p className="text-xs text-error font-medium">{error}</p>}
+        {hint && !error && <p className="text-xs text-muted-text">{hint}</p>}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = 'Input';

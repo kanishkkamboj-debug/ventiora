@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Input } from '../common/Input';
-import { Textarea } from '../common/Textarea';
-import { Switch } from '../common/Switch';
-import { Button } from '../common/Button';
+import { Input } from '../ui/Input';
+import { Textarea } from '../ui/Textarea';
+import { Switch } from '../ui/Switch';
+import { Button } from '../ui/Button';
 
 interface AnnouncementFormValues {
   title: string;

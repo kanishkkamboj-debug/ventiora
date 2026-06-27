@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Modal } from '../common/Modal';
-import { Button } from '../common/Button';
+import { Modal } from '../ui/Modal';
+import { Button } from '../ui/Button';
 import type { TargetType } from '../../types/common.types';
 import type { ReportReason } from '../../types/report.types';
 import { REPORT_REASON_LABELS } from '../../utils/constants';
@@ -21,7 +21,7 @@ const reasons: ReportReason[] = [
   'OTHER',
 ];
 
-export function ReportModal({ isOpen, onClose, targetType, targetId }: ReportModalProps) {
+export function ReportModal({ isOpen, onClose, targetType, targetId: _targetId }: ReportModalProps) {
   const [selected, setSelected] = useState<ReportReason | ''>('');
   const [description, setDescription] = useState('');
   const [submitted, setSubmitted] = useState(false);

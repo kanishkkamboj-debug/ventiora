@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { PostAuthor } from '../../types/user.types';
-import { Avatar } from '../common/Avatar';
+import { Avatar } from '../ui/Avatar';
 
 interface UserAvatarProps {
   author: PostAuthor;

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Avatar } from '../common/Avatar';
-import { Button } from '../common/Button';
-import { Switch } from '../common/Switch';
-import { useAuth } from '../../context/AuthContext';
+import { Avatar } from '../ui/Avatar';
+import { Button } from '../ui/Button';
+import { Switch } from '../ui/Switch';
+import { useAuth } from '../../hooks/useAuth';
 import { validators } from '../../utils/validators';
 
 interface CommentFormProps {
@@ -17,7 +17,7 @@ interface FormValues {
   content: string;
 }
 
-export function CommentForm({ postId, parentId, onCancel, compact }: CommentFormProps) {
+export function CommentForm({ postId: _postId, parentId, onCancel, compact }: CommentFormProps) {
   const { user } = useAuth();
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [submitted, setSubmitted] = useState(false);

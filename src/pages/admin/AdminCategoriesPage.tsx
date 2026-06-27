@@ -1,16 +1,21 @@
 import React from 'react';
 import { AdminSidebar } from '../../components/layout/AdminSidebar';
+import { Tags } from 'lucide-react';
 
 export function AdminCategoriesPage() {
   return (
-    <div className="min-h-screen bg-background flex font-mono">
+    <div className="min-h-screen bg-background flex font-headline-md">
       <AdminSidebar />
       <div className="flex-1 ml-64 p-8">
         <header className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-on-surface">Category Management</h1>
+          <h1 className="font-headline-lg text-headline-lg font-bold text-on-surface">Category Management</h1>
         </header>
-        <div className="bg-white rounded-xl border border-outline-variant p-8 text-center text-muted-text">
-          Category management tools coming soon.
+        <div className="bg-surface rounded-xl border border-border p-12 text-center text-muted-text flex flex-col items-center justify-center">
+          <div className="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mb-4">
+             <Tags className="w-8 h-8 text-primary" />
+          </div>
+          <h2 className="font-headline-md text-headline-md font-bold text-on-surface mb-2">Category tools coming soon</h2>
+          <p className="font-body-md text-body-md max-w-md mx-auto">Manage emojis, descriptions, and category visibility settings here.</p>
         </div>
       </div>
     </div>

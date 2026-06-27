@@ -25,7 +25,7 @@ export function PostCard({ post, compact = false }: PostCardProps) {
             </div>
           ) : (
             <div className="shrink-0">
-              <Avatar user={{ username: post.author_username } as any} size="sm" />
+              <Avatar avatarUrl={undefined} username={post.author_username ?? undefined} size="sm" />
             </div>
           )}
           

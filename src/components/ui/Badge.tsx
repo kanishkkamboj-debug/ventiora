@@ -1,26 +1,31 @@
 import React from 'react';
-import { cn } from './Button';
+import { cn } from '../../utils/cn';
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: 'primary' | 'secondary' | 'error' | 'outline';
+type BadgeVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'destructive' | 'outline';
+
+interface BadgeProps {
+  variant?: BadgeVariant;
+  children: React.ReactNode;
+  className?: string;
 }
 
-export function Badge({ className, variant = 'primary', children, ...props }: BadgeProps) {
-  const variants = {
-    primary: 'bg-primary-container text-on-primary-container',
-    secondary: 'bg-surface-container-high text-on-surface',
-    error: 'bg-error text-on-error',
-    outline: 'border border-outline-variant text-on-surface',
-  };
+const variantStyles: Record<BadgeVariant, string> = {
+  primary: 'bg-on-primary-container text-primary',
+  secondary: 'bg-secondary-container text-on-secondary-container',
+  success: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+  warning: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400',
+  destructive: 'bg-error-container text-on-error-container',
+  outline: 'border border-outline-variant text-on-surface-variant bg-transparent',
+};
 
+export function Badge({ variant = 'secondary', children, className }: BadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors',
-        variants[variant],
-        className
+        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold',
+        variantStyles[variant],
+        className,
       )}
-      {...props}
     >
       {children}
     </span>

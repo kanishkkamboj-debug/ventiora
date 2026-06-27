@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { Report } from '../../types/report.types';
-import { Badge } from '../common/Badge';
-import { Button } from '../common/Button';
+import { Badge } from '../ui/Badge';
+import { Button } from '../ui/Button';
 import { formatShort } from '../../utils/dateFormat';
 import { REPORT_REASON_LABELS } from '../../utils/constants';
 import { cn } from '../../utils/cn';

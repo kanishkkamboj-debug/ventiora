@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Input } from '../common/Input';
-import { Textarea } from '../common/Textarea';
-import { Button } from '../common/Button';
+import { Input } from '../ui/Input';
+import { Textarea } from '../ui/Textarea';
+import { Button } from '../ui/Button';
 import type { User } from '../../types/user.types';
 
 interface ProfileEditFormProps {

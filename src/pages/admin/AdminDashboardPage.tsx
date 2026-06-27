@@ -1,7 +1,7 @@
 import React from 'react';
 import { AdminSidebar } from '../../components/layout/AdminSidebar';
 import { Users, MessageSquare, Flag, Trash2, Edit } from 'lucide-react';
-import { mockUsers, mockPosts } from '../../utils/mockData';
+
 
 export function AdminDashboardPage() {
   const stats = [

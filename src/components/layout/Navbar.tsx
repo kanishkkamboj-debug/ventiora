@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Search, Bell, Moon, Sun, Palette, Menu } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../hooks/useAuth';
+import { useTheme } from '../../hooks/useTheme';
 import { Avatar } from '../ui/Avatar';
 
 export function Navbar() {
@@ -67,18 +67,18 @@ export function Navbar() {
             )}
           </div>
 
-          <button onClick={toggleMode} className="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors duration-200 text-on-surface-variant active:scale-95" title="Toggle Dark Mode">
+          <button onClick={toggleMode} aria-label="Toggle Dark Mode" className="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-primary/50 outline-none transition-colors duration-200 text-on-surface-variant active:scale-95" title="Toggle Dark Mode">
             {mode === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
           
-          <button className="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors duration-200 text-on-surface-variant active:scale-95 relative hidden sm:block">
+          <button aria-label="Notifications" className="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-primary/50 outline-none transition-colors duration-200 text-on-surface-variant active:scale-95 relative hidden sm:block">
             <Bell className="w-5 h-5" />
             <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-error rounded-full"></span>
           </button>
 
           {isAuthenticated ? (
              <div className="relative group cursor-pointer ml-2">
-               <Avatar user={user!} size="sm" />
+               <Avatar avatarUrl={user?.avatar_url} username={user?.username} size="sm" />
                <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
                  <div className="p-3 border-b border-border">
                    <p className="font-semibold text-sm text-on-surface">@{user?.username}</p>
@@ -99,7 +99,7 @@ export function Navbar() {
             </button>
           )}
           
-          <button className="md:hidden p-2 text-on-surface">
+          <button aria-label="Menu" className="md:hidden p-2 text-on-surface focus-visible:ring-2 focus-visible:ring-primary/50 outline-none rounded-md">
             <Menu className="w-6 h-6" />
           </button>
         </div>

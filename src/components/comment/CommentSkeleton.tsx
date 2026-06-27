@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton } from '../common/Skeleton';
+import { Skeleton } from '../ui/Skeleton';
 
 export function CommentSkeleton() {
   return (

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { cn } from '../../utils/cn';
+import { Link } from 'react-router-dom';
 import { mockCategories } from '../../utils/mockData';
 import { mockPosts } from '../../utils/mockData';
 

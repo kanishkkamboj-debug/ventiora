@@ -4,7 +4,7 @@ import { PageWrapper } from '../components/layout/PageWrapper';
 import { mockPosts, mockComments } from '../utils/mockData';
 import { Avatar } from '../components/ui/Avatar';
 import { formatDistanceToNow } from '../utils/date';
-import { ThumbsUp, MessageCircle, ArrowLeft, Bookmark, UserX, User, Pin, Star, MoreHorizontal, Send } from 'lucide-react';
+import { ThumbsUp, MessageCircle, ArrowLeft, Bookmark, UserX, Pin, Star, MoreHorizontal, Send } from 'lucide-react';
 
 export function PostDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -43,7 +43,7 @@ export function PostDetailPage() {
                 </div>
               ) : (
                 <div className="shrink-0 w-10 h-10">
-                  <Avatar user={{ username: post.author_username } as any} size="sm" />
+                  <Avatar avatarUrl={undefined} username={post.author_username ?? undefined} size="sm" />
                 </div>
               )}
               
@@ -94,7 +94,7 @@ export function PostDetailPage() {
           
           <div className="flex gap-4 mb-10">
             <div className="shrink-0 w-10 h-10 hidden sm:block">
-              <Avatar user={{ username: 'currentUser' } as any} size="sm" />
+              <Avatar avatarUrl={undefined} username="currentUser" size="sm" />
             </div>
             <div className="flex-1 flex flex-col gap-3">
               <textarea 
@@ -131,7 +131,7 @@ export function PostDetailPage() {
                         <UserX className="w-4 h-4" />
                       </div>
                     ) : (
-                      <Avatar user={{ username: comment.author_username } as any} size="sm" />
+                      <Avatar avatarUrl={undefined} username={comment.author_username ?? undefined} size="sm" />
                     )}
                   </div>
                   

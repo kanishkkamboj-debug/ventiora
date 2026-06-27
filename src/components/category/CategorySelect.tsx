@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Category } from '../../types/category.types';
-import { Select } from '../common/Select';
+import { Select } from '../ui/Select';
 
 interface CategorySelectProps {
   categories: Category[];

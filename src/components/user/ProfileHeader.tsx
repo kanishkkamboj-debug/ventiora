@@ -1,9 +1,9 @@
 import React from 'react';
-import { Avatar } from '../common/Avatar';
-import { Badge } from '../common/Badge';
+import { Avatar } from '../ui/Avatar';
+import { Badge } from '../ui/Badge';
 import type { User } from '../../types/user.types';
 import { formatShort } from '../../utils/dateFormat';
-import { Button } from '../common/Button';
+import { Button } from '../ui/Button';
 import { ROLE_LABELS } from '../../utils/constants';
 
 interface ProfileHeaderProps {

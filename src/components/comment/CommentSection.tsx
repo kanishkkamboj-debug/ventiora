@@ -2,7 +2,7 @@ import React from 'react';
 import type { Comment } from '../../types/comment.types';
 import { CommentThread } from './CommentThread';
 import { CommentForm } from './CommentForm';
-import { EmptyState } from '../common/EmptyState';
+import { EmptyState } from '../ui/EmptyState';
 
 interface CommentSectionProps {
   postId: string;

@@ -5,7 +5,6 @@ import { PageWrapper } from '../components/layout/PageWrapper';
 import { CategoryFilterBar } from '../components/widgets/CategoryFilterBar';
 import { PostCard } from '../components/widgets/PostCard';
 import { mockPosts } from '../utils/mockData';
-import { Button } from '../components/ui/Button';
 
 export function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>();

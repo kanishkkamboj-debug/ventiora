@@ -11,7 +11,7 @@ import {
   ActivitySquare,
   LogOut
 } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import { Avatar } from '../ui/Avatar';
 
 export function AdminSidebar() {
@@ -70,7 +70,7 @@ export function AdminSidebar() {
       <div className="p-4 border-t border-border bg-surface-container-high">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-8 h-8">
-            <Avatar user={user!} size="sm" />
+            <Avatar avatarUrl={user?.avatar_url} username={user?.username} size="sm" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-label-md text-label-md font-bold truncate">@{user?.username}</p>

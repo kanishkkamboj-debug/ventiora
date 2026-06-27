@@ -1,6 +1,6 @@
 import React from 'react';
 import { mockCategories } from '../../utils/mockData';
-import { cn } from '../ui/Button';
+import { cn } from '../../utils/cn';
 
 interface CategoryFilterBarProps {
   selectedCategory?: string;

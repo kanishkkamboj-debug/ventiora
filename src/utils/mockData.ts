@@ -1,7 +1,4 @@
 import type { User } from '../types/user.types';
-import type { Category } from '../types/category.types';
-import type { Post } from '../types/post.types';
-import type { Comment } from '../types/comment.types';
 
 export const mockUsers: User[] = [
   {

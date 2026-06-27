@@ -46,7 +46,7 @@ export function TrendingRail() {
                 {topic.views} views
               </div>
             </Link>
-            {index < trendingTopics.length - 1 && <hr className="border-border" />}
+            {index !== trendingTopics.length - 1 && <hr className="border-border" />}
           </React.Fragment>
         ))}
       </div>
