@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Light mode tokens ───────────────────────────────────────────── */
+:root {
+  --surface: #FDFDFD;
+  --surface-dim: #dadada;
+  --surface-bright: #f9f9f9;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f3f3f3;
+  --surface-container: #eeeeee;
+  --surface-container-high: #e8e8e8;
+  --surface-container-highest: #e2e2e2;
+  --on-surface: #1b1b1b;
+  --on-surface-variant: #484557;
+  --inverse-surface: #303030;
+  --inverse-on-surface: #f1f1f1;
+  --outline: #787588;
+  --outline-variant: #c9c3da;
+  --surface-tint: #5b2efc;
+  --primary: #4500e1;
+  --on-primary: #ffffff;
+  --primary-container: #5e33ff;
+  --on-primary-container: #dfd8ff;
+  --inverse-primary: #c8bfff;
+  --secondary: #5a5f62;
+  --on-secondary: #ffffff;
+  --secondary-container: #dce0e4;
+  --on-secondary-container: #5e6367;
+  --tertiary: #852b00;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #ad3b00;
+  --on-tertiary-container: #ffd4c5;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #f9f9f9;
+  --on-background: #1b1b1b;
+  --muted-text: #64748B;
+  --border: #E2E8F0;
+}
+
+/* ── Dark mode tokens ─────────────────────────────────────────────── */
+[data-theme='dark'] {
+  --surface: #1f1f1f;
+  --surface-dim: #141414;
+  --surface-bright: #2a2a2a;
+  --surface-container-lowest: #111111;
+  --surface-container-low: #1e1e1e;
+  --surface-container: #242424;
+  --surface-container-high: #2c2c2c;
+  --surface-container-highest: #333333;
+  --on-surface: #e2e2e2;
+  --on-surface-variant: #cbc8d8;
+  --inverse-surface: #e2e2e2;
+  --inverse-on-surface: #303030;
+  --outline: #948fa5;
+  --outline-variant: #47444f;
+  --surface-tint: #7c5cff;
+  --primary: #7c5cff;
+  --on-primary: #ffffff;
+  --primary-container: #5e33ff;
+  --on-primary-container: #dfd8ff;
+  --inverse-primary: #4500e1;
+  --secondary: #b9bfc3;
+  --on-secondary: #303030;
+  --secondary-container: #3e4347;
+  --on-secondary-container: #dce0e4;
+  --tertiary: #ffb599;
+  --on-tertiary: #4d1500;
+  --tertiary-container: #ad3b00;
+  --on-tertiary-container: #ffd4c5;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
+  --background: #141414;
+  --on-background: #e2e2e2;
+  --muted-text: #94a3b8;
+  --border: #2c2c2c;
+}
+
+/* ── Base styles ──────────────────────────────────────────────────── */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    background-color: var(--background);
+    color: var(--on-surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    color: var(--on-surface);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  ::selection {
+    background-color: var(--on-primary-container);
+    color: var(--primary);
+  }
+}
+
+/* ── Shimmer animation for skeleton ──────────────────────────────── */
+@layer utilities {
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--surface-container) 25%,
+      var(--surface-container-high) 50%,
+      var(--surface-container) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .prose-post {
+    font-family: 'Noto Serif', ui-serif, Georgia, serif;
+    line-height: 1.75;
+    font-size: 1rem;
+    color: var(--on-surface);
+  }
+
+  .prose-post p {
+    margin-bottom: 1em;
+  }
+
+  .prose-post h2 {
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 1.5em 0 0.5em;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.15s ease-out;
+}
