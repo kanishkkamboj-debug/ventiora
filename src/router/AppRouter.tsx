@@ -15,6 +15,7 @@ import { SearchPage } from '../pages/SearchPage';
 import { NotificationsPage } from '../pages/NotificationsPage';
 import { ForgotPasswordPage } from '../pages/ForgotPasswordPage';
 import { ResetPasswordPage } from '../pages/ResetPasswordPage';
+import { MessagesPage } from '../pages/MessagesPage';
 
 // Admin pages
 import { AdminDashboardPage } from '../pages/admin/AdminDashboardPage';
@@ -103,6 +104,14 @@ export function AppRouter() {
               <NotificationsPage />
             </ProtectedRoute>
           </PublicLayout>
+        }
+      />
+      <Route
+        path="/messages"
+        element={
+          <ProtectedRoute>
+            <MessagesPage />
+          </ProtectedRoute>
         }
       />
 

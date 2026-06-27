@@ -1,5 +1,7 @@
 import React from 'react';
 import { Navbar } from './Navbar';
+import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { TrendingRail } from '../widgets/TrendingRail';
 
 interface PageWrapperProps {
@@ -8,21 +10,40 @@ interface PageWrapperProps {
 }
 
 export function PageWrapper({ children, showTrending = false }: PageWrapperProps) {
+  const pageVariants: Variants = {
+    initial: { opacity: 0, y: 15 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+    exit: { opacity: 0, y: -15, transition: { duration: 0.2, ease: 'easeIn' } }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-on-background font-body-md transition-colors duration-300">
       <Navbar />
       <main className="flex-grow px-margin-mobile md:px-gutter max-w-container-max mx-auto w-full py-stack-lg">
         {showTrending ? (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            <div className="md:col-span-8 space-y-6">
+            <motion.div 
+              className="md:col-span-8 space-y-6"
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
               {children}
-            </div>
+            </motion.div>
             <div className="md:col-span-4 hidden md:block space-y-6">
               <TrendingRail />
             </div>
           </div>
         ) : (
-          children
+          <motion.div
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            {children}
+          </motion.div>
         )}
       </main>
       

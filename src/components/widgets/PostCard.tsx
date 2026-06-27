@@ -3,6 +3,7 @@ import { ThumbsUp, MessageCircle, Bookmark, UserX, User, Pin, Star, MoreHorizont
 import { Link } from 'react-router-dom';
 import { Avatar } from '../ui/Avatar';
 import { formatDistanceToNow } from '../../utils/date';
+import { motion } from 'framer-motion';
 
 interface PostCardProps {
   post: any; // Type to be refined
@@ -16,7 +17,11 @@ export function PostCard({ post, compact = false }: PostCardProps) {
   const displayName = isAnonymous ? 'Anonymous' : `@${post.author_username}`;
 
   return (
-    <article className="bg-surface rounded-xl p-6 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:hover:shadow-none transition-all border border-transparent hover:border-border group">
+    <motion.article 
+      whileHover={{ scale: 1.01 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className="bg-surface rounded-xl p-6 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:hover:shadow-none transition-shadow border border-transparent hover:border-border group"
+    >
       <div className="flex justify-between items-start mb-3">
         <div className="flex items-center gap-3">
           {isAnonymous ? (
@@ -59,19 +64,27 @@ export function PostCard({ post, compact = false }: PostCardProps) {
       </Link>
 
       <div className="flex items-center gap-4 text-muted-text font-label-sm text-label-sm mt-2">
-        <button className="flex items-center gap-1.5 hover:text-primary transition-colors group/btn">
+        <motion.button 
+          whileTap={{ scale: 0.9 }}
+          className="flex items-center gap-1.5 hover:text-primary transition-colors group/btn"
+        >
           <ThumbsUp className="w-4 h-4 group-hover/btn:fill-primary" /> 
           <span>12</span>
-        </button>
+        </motion.button>
         <Link to={`/posts/${post.id}`} className="flex items-center gap-1.5 hover:text-primary transition-colors group/btn">
-          <MessageCircle className="w-4 h-4 group-hover/btn:fill-primary" /> 
+          <motion.div whileTap={{ scale: 0.9 }}>
+             <MessageCircle className="w-4 h-4 group-hover/btn:fill-primary" />
+          </motion.div>
           <span>4 Comments</span>
         </Link>
-        <button className="flex items-center gap-1.5 hover:text-primary transition-colors ml-auto group/btn">
+        <motion.button 
+          whileTap={{ scale: 0.9 }}
+          className="flex items-center gap-1.5 hover:text-primary transition-colors ml-auto group/btn"
+        >
           <Bookmark className="w-4 h-4 group-hover/btn:fill-primary" /> 
           <span className="hidden sm:inline">Save</span>
-        </button>
+        </motion.button>
       </div>
-    </article>
+    </motion.article>
   );
 }
