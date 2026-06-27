@@ -1,4 +1,4 @@
--- Supabase Seed Data for Unfiltered Campus
+﻿-- Supabase Seed Data for Ventiora
 
 insert into auth.users (id, instance_id, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, role, is_super_admin)
 values
@@ -20,16 +20,16 @@ values
 
 insert into public.categories (id, name, emoji, description)
 values
-  ('a1111111-1111-1111-1111-111111111111', 'Studies', '📚', 'Academic discussions and study help'),
-  ('a2222222-2222-2222-2222-222222222222', 'Placements', '💼', 'Career, internships, and interviews'),
-  ('a3333333-3333-3333-3333-333333333333', 'Mental Health', '😔', 'Safe space for support'),
-  ('a4444444-4444-4444-4444-444444444444', 'Relationships', '❤️', 'Dating and friendships'),
-  ('a5555555-5555-5555-5555-555555555555', 'College Life', '🏫', 'Dorm life and campus events'),
-  ('a6666666-6666-6666-6666-666666666666', 'Memes', '😂', 'Campus humor'),
-  ('a7777777-7777-7777-7777-777777777777', 'Gaming', '🎮', 'LFG and gaming talk'),
-  ('a8888888-8888-8888-8888-888888888888', 'Finance', '💸', 'Budgeting and student loans'),
-  ('a9999999-9999-9999-9999-999999999999', 'Advice', '🤔', 'General advice'),
-  ('a0000000-0000-0000-0000-000000000000', 'Confessions', '🤫', 'Anonymous confessions');
+  ('a1111111-1111-1111-1111-111111111111', 'Studies', 'ðŸ“š', 'Academic discussions and study help'),
+  ('a2222222-2222-2222-2222-222222222222', 'Placements', 'ðŸ’¼', 'Career, internships, and interviews'),
+  ('a3333333-3333-3333-3333-333333333333', 'Mental Health', 'ðŸ˜”', 'Safe space for support'),
+  ('a4444444-4444-4444-4444-444444444444', 'Relationships', 'â¤ï¸', 'Dating and friendships'),
+  ('a5555555-5555-5555-5555-555555555555', 'College Life', 'ðŸ«', 'Dorm life and campus events'),
+  ('a6666666-6666-6666-6666-666666666666', 'Memes', 'ðŸ˜‚', 'Campus humor'),
+  ('a7777777-7777-7777-7777-777777777777', 'Gaming', 'ðŸŽ®', 'LFG and gaming talk'),
+  ('a8888888-8888-8888-8888-888888888888', 'Finance', 'ðŸ’¸', 'Budgeting and student loans'),
+  ('a9999999-9999-9999-9999-999999999999', 'Advice', 'ðŸ¤”', 'General advice'),
+  ('a0000000-0000-0000-0000-000000000000', 'Confessions', 'ðŸ¤«', 'Anonymous confessions');
 
 -- Posts
 insert into public.posts (id, user_id, category_id, title, content, is_anonymous, is_pinned, is_featured)
@@ -54,7 +54,7 @@ values
 -- Announcements
 insert into public.announcements (id, title, content, created_by, is_important)
 values
-  ('e1111111-1111-1111-1111-111111111111', 'Welcome to Unfiltered Campus!', 'We are excited to launch our new community platform.', '33333333-3333-3333-3333-333333333333', true);
+  ('e1111111-1111-1111-1111-111111111111', 'Welcome to Ventiora!', 'We are excited to launch our new community platform.', '33333333-3333-3333-3333-333333333333', true);
 
 -- Tags
 insert into public.tags (id, name)

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, 
@@ -31,7 +31,7 @@ export function AdminSidebar() {
   return (
     <aside className="w-[240px] bg-surface-container h-screen fixed left-0 top-0 flex flex-col font-headline-md border-r border-border">
       <div className="p-6 pb-4">
-        <h1 className="font-headline-md text-headline-md font-bold text-primary mb-1">Unfiltered Campus</h1>
+        <h1 className="font-headline-md text-headline-md font-bold text-primary mb-1">Ventiora</h1>
         <p className="font-label-sm text-label-sm text-muted-text">Admin Control</p>
       </div>
 

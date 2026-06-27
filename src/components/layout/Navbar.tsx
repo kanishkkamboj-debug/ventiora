@@ -27,8 +27,15 @@ export function Navbar() {
         <div className="flex justify-between items-center px-gutter max-w-container-max mx-auto h-16">
           {/* Brand & Search */}
           <div className="flex items-center gap-6 flex-1">
-            <Link to="/" className="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed shrink-0">
-              Unfiltered Campus
+            <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
+              <img 
+                src="/logo.svg" 
+                alt="Ventiora Logo" 
+                className="w-8 h-8 transition-transform group-hover:scale-105" 
+              />
+              <span className="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary shrink-0 tracking-tight">
+                Ventiora
+              </span>
             </Link>
             <div className="hidden md:flex relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-text w-5 h-5" />
@@ -71,7 +78,7 @@ export function Navbar() {
                 <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-lg z-50 overflow-hidden">
                   <div className="p-2 flex flex-col">
                     <button onClick={() => { setTheme('theme-1'); setShowThemeMenu(false); }} className={`px-4 py-2 text-left text-sm font-medium hover:bg-surface-container-low rounded-lg ${theme === 'theme-1' ? 'text-primary' : 'text-on-surface'}`}>Teal / Cyan</button>
-                    <button onClick={() => { setTheme('theme-2'); setShowThemeMenu(false); }} className={`px-4 py-2 text-left text-sm font-medium hover:bg-surface-container-low rounded-lg ${theme === 'theme-2' ? 'text-primary' : 'text-on-surface'}`}>Sage Green (Default)</button>
+                    <button onClick={() => { setTheme('theme-2'); setShowThemeMenu(false); }} className={`px-4 py-2 text-left text-sm font-medium hover:bg-surface-container-low rounded-lg ${theme === 'theme-2' ? 'text-primary' : 'text-on-surface'}`}>Ventiora (Default)</button>
                     <button onClick={() => { setTheme('theme-3'); setShowThemeMenu(false); }} className={`px-4 py-2 text-left text-sm font-medium hover:bg-surface-container-low rounded-lg ${theme === 'theme-3' ? 'text-primary' : 'text-on-surface'}`}>Blue / Gold</button>
                     <button onClick={() => { setTheme('theme-4'); setShowThemeMenu(false); }} className={`px-4 py-2 text-left text-sm font-medium hover:bg-surface-container-low rounded-lg ${theme === 'theme-4' ? 'text-primary' : 'text-on-surface'}`}>Purple</button>
                   </div>

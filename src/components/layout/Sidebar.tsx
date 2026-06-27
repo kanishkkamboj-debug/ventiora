@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { mockCategories } from '../../utils/mockData';
 import { mockPosts } from '../../utils/mockData';
@@ -11,7 +11,7 @@ function TrendingWidget() {
   return (
     <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4">
       <h3 className="text-sm font-bold text-on-surface mb-3 flex items-center gap-1.5">
-        🔥 Trending
+        ðŸ”¥ Trending
       </h3>
       <ol className="space-y-3">
         {topPosts.map((post, idx) => (
@@ -66,14 +66,14 @@ export function Sidebar() {
       <TrendingWidget />
       <CategoryLinks />
       <div className="text-xs text-muted-text space-y-1 px-1">
-        <p className="font-semibold text-on-surface-variant">Unfiltered Campus</p>
+        <p className="font-semibold text-on-surface-variant">Ventiora</p>
         <p>The honest student forum.</p>
         <div className="flex flex-wrap gap-2 mt-2">
           <Link to="/about" className="hover:text-primary transition-colors no-underline">About</Link>
           <Link to="/privacy" className="hover:text-primary transition-colors no-underline">Privacy</Link>
           <Link to="/terms" className="hover:text-primary transition-colors no-underline">Terms</Link>
         </div>
-        <p className="mt-2">© 2026 Unfiltered Campus</p>
+        <p className="mt-2">Â© 2026 Ventiora</p>
       </div>
     </aside>
   );

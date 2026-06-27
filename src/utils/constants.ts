@@ -1,4 +1,4 @@
-export const APP_NAME = 'Unfiltered Campus';
+﻿export const APP_NAME = 'Ventiora';
 export const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080/api';
 export const CONTAINER_MAX = '1120px';
 export const PAGE_SIZE = 10;
@@ -14,7 +14,7 @@ export const REPORT_REASON_LABELS: Record<string, string> = {
   HARASSMENT: 'Harassment',
   MISINFORMATION: 'Misinformation',
   INAPPROPRIATE_CONTENT: 'Inappropriate Content',
-  SELF_HARM_CONCERN: '⚠️ Self-Harm Concern',
+  SELF_HARM_CONCERN: 'âš ï¸ Self-Harm Concern',
   OTHER: 'Other',
 };
 

@@ -1,32 +1,31 @@
-# React + TypeScript + Vite
+# Ventiora
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+**The honest student forum** — a modern, anonymous-friendly campus discussion platform built with React, TypeScript, Vite, and Supabase.
 
-Currently, two official plugins are available:
+## Features
+- 🗣️ Anonymous & identified posts across campus categories
+- 🔔 Real-time notifications
+- 🏘️ Communities & group chats
+- 🛡️ Reporting & moderation system
+- 🌙 Dark mode + 4 premium themes
+- 👤 Rich public profiles (bio, interests, gender, age range)
+- 📂 File uploads with Supabase Storage
+- ⚡ Admin dashboard with audit logs
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS + Stitch Design System
+- **Backend**: Supabase (Auth, Database, Realtime, Storage, Edge Functions)
+- **Icons**: Lucide React
+- **Fonts**: Plus Jakarta Sans, Noto Serif, Antic, Lora
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+cp .env.example .env.local  # fill in your Supabase credentials
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## License
+© 2026 Ventiora. All rights reserved.

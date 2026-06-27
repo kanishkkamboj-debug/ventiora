@@ -1,4 +1,4 @@
--- Unfiltered Campus Base Schema
+﻿-- Ventiora Base Schema
 -- Extensions
 create extension if not exists "uuid-ossp";
 

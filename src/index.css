@@ -4,52 +4,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── DEFAULT THEME (Theme 2 - Sage Green) ──────────────────────── */
-:root {
-  --background: rgb(248, 247, 244);
-  --foreground: rgb(26, 31, 46);
+/* ── VENTIORA DEFAULT THEME (Deep Indigo + Soft Lavender) ──────── */
+:root, [data-theme='theme-2'] {
+  --background: rgb(248, 248, 252);
+  --foreground: rgb(19, 18, 43);
   --card: rgb(255, 255, 255);
-  --card-foreground: rgb(26, 31, 46);
+  --card-foreground: rgb(19, 18, 43);
   --popover: rgb(255, 255, 255);
-  --popover-foreground: rgb(26, 31, 46);
-  --primary: rgb(124, 144, 130);
+  --popover-foreground: rgb(19, 18, 43);
+  --primary: rgb(43, 42, 105);
   --primary-foreground: rgb(255, 255, 255);
-  --secondary: rgb(206, 212, 191);
-  --secondary-foreground: rgb(26, 31, 46);
-  --muted: rgb(232, 230, 225);
-  --muted-foreground: rgb(107, 114, 128);
-  --accent: rgb(191, 201, 187);
-  --accent-foreground: rgb(26, 31, 46);
-  --destructive: rgb(199, 62, 58);
+  --secondary: rgb(168, 160, 212);
+  --secondary-foreground: rgb(19, 18, 43);
+  --muted: rgb(237, 236, 248);
+  --muted-foreground: rgb(107, 105, 145);
+  --accent: rgb(214, 210, 240);
+  --accent-foreground: rgb(19, 18, 43);
+  --destructive: rgb(235, 95, 68);
   --destructive-foreground: rgb(255, 255, 255);
-  --border: rgb(232, 230, 225);
+  --border: rgb(226, 224, 244);
   --input: rgb(255, 255, 255);
-  --ring: rgb(124, 144, 130);
+  --ring: rgb(168, 160, 212);
 
-  --font-sans: 'Antic', ui-sans-serif, sans-serif;
-  --font-serif: 'Signifier', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+  --font-serif: 'Lora', Georgia, serif;
 }
 
-[data-theme='dark'] {
-  --background: rgb(10, 10, 10);
-  --foreground: rgb(245, 245, 245);
-  --card: rgb(18, 18, 18);
-  --card-foreground: rgb(245, 245, 245);
-  --popover: rgb(18, 18, 18);
-  --popover-foreground: rgb(245, 245, 245);
-  --primary: rgb(124, 144, 130);
-  --primary-foreground: rgb(0, 0, 0);
-  --secondary: rgb(26, 26, 26);
-  --secondary-foreground: rgb(245, 245, 245);
-  --muted: rgb(26, 26, 26);
-  --muted-foreground: rgb(160, 160, 160);
-  --accent: rgb(54, 68, 58);
-  --accent-foreground: rgb(245, 245, 245);
-  --destructive: rgb(239, 68, 68);
+.dark, .dark[data-theme='theme-2'] {
+  --background: rgb(12, 11, 28);
+  --foreground: rgb(232, 230, 252);
+  --card: rgb(20, 19, 45);
+  --card-foreground: rgb(232, 230, 252);
+  --popover: rgb(20, 19, 45);
+  --popover-foreground: rgb(232, 230, 252);
+  --primary: rgb(168, 160, 212);
+  --primary-foreground: rgb(12, 11, 28);
+  --secondary: rgb(35, 33, 75);
+  --secondary-foreground: rgb(232, 230, 252);
+  --muted: rgb(30, 28, 64);
+  --muted-foreground: rgb(148, 145, 185);
+  --accent: rgb(55, 50, 110);
+  --accent-foreground: rgb(232, 230, 252);
+  --destructive: rgb(235, 95, 68);
   --destructive-foreground: rgb(255, 255, 255);
-  --border: rgb(42, 42, 42);
-  --input: rgb(18, 18, 18);
-  --ring: rgb(124, 144, 130);
+  --border: rgb(45, 43, 90);
+  --input: rgb(30, 28, 64);
+  --ring: rgb(168, 160, 212);
 }
 
 
@@ -79,8 +79,7 @@
   --font-serif: 'Courier New', monospace;
 }
 
-[data-theme='dark'][data-theme='theme-1'], 
-[data-theme='theme-1'] .dark {
+.dark[data-theme='theme-1'] {
   --background: rgb(10, 26, 32);
   --foreground: rgb(77, 232, 232);
   --card: rgb(12, 32, 37);
@@ -129,8 +128,7 @@
   --font-serif: 'Libre Baskerville', serif;
 }
 
-[data-theme='dark'][data-theme='theme-3'], 
-[data-theme='theme-3'] .dark {
+.dark[data-theme='theme-3'] {
   --background: rgb(24, 26, 36);
   --foreground: rgb(230, 234, 243);
   --card: rgb(35, 36, 58);
@@ -178,8 +176,7 @@
   --font-serif: 'Lora', serif;
 }
 
-[data-theme='dark'][data-theme='theme-4'], 
-[data-theme='theme-4'] .dark {
+.dark[data-theme='theme-4'] {
   --background: rgb(26, 27, 30);
   --foreground: rgb(240, 240, 240);
   --card: rgb(34, 35, 39);

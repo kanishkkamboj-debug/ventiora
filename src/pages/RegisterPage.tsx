@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 
@@ -10,7 +10,7 @@ export function RegisterPage() {
       <div className="max-w-[400px] w-full">
         <div className="text-center mb-8">
           <h1 className="font-headline-xl text-headline-xl text-primary font-bold mb-1">
-            Unfiltered Campus
+            Ventiora
           </h1>
           <p className="font-body-md text-body-md text-muted-text">Join the conversation. No judgment here.</p>
         </div>
@@ -45,7 +45,7 @@ export function RegisterPage() {
               <div className="relative">
                 <input 
                   type={showPassword ? 'text' : 'password'} 
-                  placeholder="••••••••" 
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
                   required 
                   className="w-full bg-surface-container-lowest border border-border rounded-xl pl-4 pr-12 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all"
                 />
@@ -63,7 +63,7 @@ export function RegisterPage() {
               <label className="font-label-md text-label-md font-semibold text-on-surface">Confirm Password</label>
               <input 
                 type={showPassword ? 'text' : 'password'} 
-                placeholder="••••••••" 
+                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
                 required 
                 className="w-full bg-surface-container-lowest border border-border rounded-xl px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all"
               />
@@ -92,7 +92,7 @@ export function RegisterPage() {
             
             <div className="relative flex items-center py-2">
               <div className="flex-grow border-t border-border"></div>
-              <span className="flex-shrink-0 mx-4 font-label-sm text-label-sm text-muted-text">— or —</span>
+              <span className="flex-shrink-0 mx-4 font-label-sm text-label-sm text-muted-text">â€” or â€”</span>
               <div className="flex-grow border-t border-border"></div>
             </div>
             

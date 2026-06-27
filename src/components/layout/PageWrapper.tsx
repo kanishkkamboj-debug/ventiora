@@ -51,8 +51,11 @@ export function PageWrapper({ children, showTrending = false }: PageWrapperProps
       {/* Footer */}
       <footer className="bg-surface-container-lowest dark:bg-inverse-surface w-full mt-auto border-t border-border dark:border-outline-variant">
         <div className="flex flex-col md:flex-row justify-between items-center py-stack-lg px-gutter max-w-container-max mx-auto">
-          <div className="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-primary-fixed-variant mb-4 md:mb-0">
-            Unfiltered Campus
+          <div className="flex items-center gap-2 mb-4 md:mb-0">
+            <img src="/logo.svg" alt="Ventiora" className="w-7 h-7" />
+            <span className="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-primary-fixed-variant">
+              Ventiora
+            </span>
           </div>
           <div className="flex flex-wrap justify-center gap-6 font-body-md text-body-md font-label-sm text-label-sm">
             <Link to="/guidelines" className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100">Guidelines</Link>
@@ -60,7 +63,7 @@ export function PageWrapper({ children, showTrending = false }: PageWrapperProps
             <Link to="/terms" className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100">Terms</Link>
           </div>
           <div className="mt-4 md:mt-0 font-label-sm text-label-sm text-muted-text text-center md:text-right">
-            © 2024 Unfiltered Campus. For students, by students.
+            Â© 2024 Ventiora. For students, by students.
           </div>
         </div>
       </footer>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Check } from 'lucide-react';
 
@@ -9,18 +9,18 @@ export function ForgotPasswordPage() {
     <div className="min-h-screen bg-[#F9F9F9] flex items-center justify-center p-4" style={{ backgroundImage: 'radial-gradient(#E2E8F0 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
       <div className="max-w-[380px] w-full">
         <h1 className="font-headline-xl text-headline-xl text-primary font-bold text-center mb-6">
-          Unfiltered Campus
+          Ventiora
         </h1>
         
         <div className="bg-surface rounded-[24px] p-8 shadow-md border border-border">
           {!success ? (
             <>
               <Link to="/login" className="font-label-sm text-label-sm font-semibold text-primary hover:underline mb-4 inline-block">
-                ← Back to login
+                â† Back to login
               </Link>
               <h2 className="font-headline-lg text-headline-lg font-bold text-on-surface mb-2">Reset your password</h2>
               <p className="font-body-sm text-body-sm text-muted-text mb-6">
-                Enter your university email and we'll send you a reset link — if an account exists.
+                Enter your university email and we'll send you a reset link â€” if an account exists.
               </p>
               
               <form className="flex flex-col gap-5" onSubmit={(e) => { e.preventDefault(); setSuccess(true); }}>

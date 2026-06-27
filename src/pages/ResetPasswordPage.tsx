@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Eye, EyeOff, Check } from 'lucide-react';
 
@@ -10,7 +10,7 @@ export function ResetPasswordPage() {
     <div className="min-h-screen bg-[#F9F9F9] flex items-center justify-center p-4" style={{ backgroundImage: 'radial-gradient(#E2E8F0 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
       <div className="max-w-[380px] w-full">
         <h1 className="font-headline-xl text-headline-xl text-primary font-bold text-center mb-6">
-          Unfiltered Campus
+          Ventiora
         </h1>
         
         <div className="bg-surface rounded-[24px] p-8 shadow-md border border-border">
@@ -23,7 +23,7 @@ export function ResetPasswordPage() {
                   <div className="relative">
                     <input 
                       type={showPassword ? 'text' : 'password'} 
-                      placeholder="••••••••" 
+                      placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
                       required 
                       className="w-full bg-surface-container-lowest border border-border rounded-xl pl-4 pr-12 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all"
                     />
@@ -42,7 +42,7 @@ export function ResetPasswordPage() {
                   <label className="font-label-md text-label-md font-semibold text-on-surface">Confirm Password</label>
                   <input 
                     type={showPassword ? 'text' : 'password'} 
-                    placeholder="••••••••" 
+                    placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
                     required 
                     className="w-full bg-surface-container-lowest border border-border rounded-xl px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all"
                   />

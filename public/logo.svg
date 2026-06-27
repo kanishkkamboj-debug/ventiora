@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Outer speech-bubble ring with gap at top -->
+  <path
+    d="M256 48
+       C152 48 68 132 68 236
+       C68 300 100 356 150 392
+       L130 464
+       L200 424
+       C218 430 237 433 256 433
+       C360 433 444 349 444 245
+       C444 141 360 57 256 57 Z"
+    fill="#A8A0D4"
+    opacity="0.15"
+  />
+  <!-- Main ring -->
+  <path
+    d="M256 72
+       C370 72 462 152 462 256
+       C462 316 432 370 384 406"
+    stroke="#9B94CC"
+    stroke-width="44"
+    stroke-linecap="round"
+    fill="none"
+  />
+  <path
+    d="M128 406
+       C80 370 50 316 50 256
+       C50 168 118 96 210 76"
+    stroke="#9B94CC"
+    stroke-width="44"
+    stroke-linecap="round"
+    fill="none"
+  />
+  <!-- Tail of speech bubble -->
+  <path
+    d="M310 420 L256 490 L202 420"
+    stroke="#9B94CC"
+    stroke-width="44"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+    fill="none"
+  />
+  <!-- V lettermark -->
+  <path
+    d="M168 180 L256 360 L344 180"
+    stroke="#9B94CC"
+    stroke-width="48"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+    fill="none"
+  />
+</svg>
