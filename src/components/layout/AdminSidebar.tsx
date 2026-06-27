@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Avatar } from '../ui/Avatar';
-import { Button } from '../ui/Button';
 
 export function AdminSidebar() {
   const { user, logout } = useAuth();
@@ -30,20 +29,20 @@ export function AdminSidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-surface-container-high h-screen fixed left-0 top-0 flex flex-col border-r border-outline-variant">
-      <div className="p-6">
-        <h1 className="text-xl font-bold text-primary-container">Unfiltered Campus</h1>
-        <p className="text-xs text-muted-text mt-1 uppercase tracking-wider font-semibold">Admin Control</p>
+    <aside className="w-[240px] bg-surface-container h-screen fixed left-0 top-0 flex flex-col font-headline-md border-r border-border">
+      <div className="p-6 pb-4">
+        <h1 className="font-headline-md text-headline-md font-bold text-primary mb-1">Unfiltered Campus</h1>
+        <p className="font-label-sm text-label-sm text-muted-text">Admin Control</p>
       </div>
 
-      <div className="px-4 pb-4">
-        <Button fullWidth className="gap-2">
+      <div className="px-4 pb-6">
+        <button className="w-full bg-primary text-on-primary font-label-md text-label-md px-4 py-2.5 rounded-md hover:shadow-sm transition-all flex items-center justify-center gap-2">
           + New Announcement
-        </Button>
+        </button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto py-4">
-        <ul className="space-y-1">
+      <nav className="flex-1 overflow-y-auto">
+        <ul className="flex flex-col">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -52,10 +51,10 @@ export function AdminSidebar() {
                   to={item.path}
                   end={item.path === '/admin'}
                   className={({ isActive }) =>
-                    `flex items-center gap-3 px-6 py-3 text-sm font-medium transition-colors ${
+                    `flex items-center gap-3 px-6 py-3 font-label-md text-label-md transition-colors ${
                       isActive
-                        ? 'bg-primary-container/10 text-primary-container border-l-4 border-primary-container'
-                        : 'text-on-surface hover:bg-surface-container-highest hover:text-primary-container border-l-4 border-transparent'
+                        ? 'bg-primary/10 text-primary border-l-4 border-primary font-bold'
+                        : 'text-on-surface hover:bg-surface-container-high hover:text-primary border-l-4 border-transparent'
                     }`
                   }
                 >
@@ -68,15 +67,17 @@ export function AdminSidebar() {
         </ul>
       </nav>
 
-      <div className="p-4 border-t border-outline-variant bg-surface-container-highest/50">
+      <div className="p-4 border-t border-border bg-surface-container-high">
         <div className="flex items-center gap-3 mb-4">
-          <Avatar user={user!} size="sm" />
+          <div className="w-8 h-8">
+            <Avatar user={user!} size="sm" />
+          </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold truncate">@{user?.username}</p>
-            <p className="text-xs text-muted-text truncate">{user?.email}</p>
+            <p className="font-label-md text-label-md font-bold truncate">@{user?.username}</p>
+            <p className="font-body-sm text-body-sm text-muted-text truncate">{user?.email}</p>
           </div>
         </div>
-        <button onClick={logout} className="flex items-center gap-2 text-sm font-medium text-error hover:text-error/80 w-full px-2">
+        <button onClick={logout} className="flex items-center gap-2 font-label-sm text-label-sm font-bold text-error hover:text-error/80 w-full px-2 transition-colors">
           <LogOut className="h-4 w-4" />
           Sign out
         </button>

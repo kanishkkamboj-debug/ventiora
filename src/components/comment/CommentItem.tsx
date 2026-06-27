@@ -9,7 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 import { cn } from '../../utils/cn';
 
 interface CommentItemProps {
-  comment: Comment;
+  comment: any; // Using any for now to handle raw mock structure
   isReply?: boolean;
 }
 
@@ -17,22 +17,22 @@ export function CommentItem({ comment, isReply = false }: CommentItemProps) {
   const [showReply, setShowReply] = useState(false);
   const { user } = useAuth();
 
-  const authorName = comment.author.isAnonymous ? 'Anonymous' : comment.author.user.username;
-  const authorAvatar = comment.author.isAnonymous ? undefined : comment.author.user.avatarUrl;
+  const authorName = comment.is_anonymous ? 'Anonymous' : comment.author_username;
+  const authorAvatar = comment.is_anonymous ? undefined : comment.author_avatar_url;
 
   return (
     <div className={cn('flex gap-3', isReply && 'ml-10 mt-3')}>
       <Avatar
         avatarUrl={authorAvatar}
         username={authorName}
-        isAnonymous={comment.author.isAnonymous}
+        isAnonymous={comment.is_anonymous}
         size="sm"
       />
       <div className="flex-1 min-w-0">
         <div className="bg-surface-container rounded-xl px-4 py-3">
           <div className="flex items-center gap-2 mb-1.5">
             <span className="text-sm font-semibold text-on-surface">{authorName}</span>
-            <span className="text-xs text-muted-text">{formatRelative(comment.createdAt)}</span>
+            <span className="text-xs text-muted-text">{formatRelative(comment.created_at)}</span>
           </div>
           <p className="text-sm text-on-surface leading-relaxed font-serif">{comment.content}</p>
         </div>
@@ -60,7 +60,7 @@ export function CommentItem({ comment, isReply = false }: CommentItemProps) {
         {showReply && (
           <div className="mt-2">
             <CommentForm
-              postId={comment.postId}
+              postId={comment.post_id}
               parentId={comment.id}
               onCancel={() => setShowReply(false)}
               compact
@@ -71,7 +71,7 @@ export function CommentItem({ comment, isReply = false }: CommentItemProps) {
         {/* Nested replies */}
         {comment.replies && comment.replies.length > 0 && (
           <div className="mt-1">
-            {comment.replies.map((reply) => (
+            {comment.replies.map((reply: any) => (
               <CommentItem key={reply.id} comment={reply} isReply />
             ))}
           </div>

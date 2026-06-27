@@ -7,7 +7,7 @@ import { Button } from '../common/Button';
 import { ROLE_LABELS } from '../../utils/constants';
 
 interface ProfileHeaderProps {
-  user: User;
+  user: User & { post_count?: number; comment_count?: number };
   isOwnProfile: boolean;
   onEdit?: () => void;
 }
@@ -17,7 +17,7 @@ export function ProfileHeader({ user, isOwnProfile, onEdit }: ProfileHeaderProps
     <div className="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6">
       <div className="flex items-start gap-5">
         <Avatar
-          avatarUrl={user.avatarUrl}
+          avatarUrl={user.avatar_url}
           username={user.username}
           size="xl"
         />
@@ -29,17 +29,20 @@ export function ProfileHeader({ user, isOwnProfile, onEdit }: ProfileHeaderProps
                 {ROLE_LABELS[user.role]}
               </Badge>
             )}
-            {user.status !== 'ACTIVE' && (
-              <Badge variant="warning">{user.status}</Badge>
+            {user.is_suspended && (
+              <Badge variant="warning">SUSPENDED</Badge>
+            )}
+            {user.is_banned && (
+              <Badge variant="destructive">BANNED</Badge>
             )}
           </div>
           {user.bio && (
             <p className="text-sm text-on-surface-variant mt-2">{user.bio}</p>
           )}
           <div className="flex items-center gap-4 mt-3 text-sm text-muted-text">
-            <span>📅 Joined {formatShort(user.createdAt)}</span>
-            <span>📝 {user.postCount} posts</span>
-            <span>💬 {user.commentCount} comments</span>
+            <span>📅 Joined {formatShort(user.created_at)}</span>
+            <span>📝 {user.post_count ?? 0} posts</span>
+            <span>💬 {user.comment_count ?? 0} comments</span>
           </div>
         </div>
         {isOwnProfile && (

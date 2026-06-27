@@ -14,7 +14,7 @@ interface PostDetailProps {
 
 export function PostDetail({ post }: PostDetailProps) {
   const authorName = post.author.isAnonymous ? 'Anonymous' : post.author.user.username;
-  const authorAvatar = post.author.isAnonymous ? undefined : post.author.user.avatarUrl;
+  const authorAvatar = post.author.isAnonymous ? undefined : post.author.user.avatar_url;
 
   return (
     <article className="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6">

@@ -15,7 +15,7 @@ export function PostCard({ post }: PostCardProps) {
   const authorName =
     post.author.isAnonymous ? 'Anonymous' : post.author.user.username;
   const authorAvatar =
-    post.author.isAnonymous ? undefined : post.author.user.avatarUrl;
+    post.author.isAnonymous ? undefined : post.author.user.avatar_url;
 
   const totalReactions = post.reactions.reduce((sum, r) => sum + r.count, 0);
 

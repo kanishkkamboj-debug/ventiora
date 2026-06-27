@@ -5,7 +5,7 @@ import { NotificationItem } from './NotificationItem';
 export function NotificationDropdown() {
   return (
     <div className="divide-y divide-outline-variant">
-      {mockNotifications.map((n) => (
+      {mockNotifications.map((n: any) => (
         <NotificationItem key={n.id} notification={n} />
       ))}
     </div>

@@ -1,5 +1,5 @@
 import type { User } from '../types/user.types';
-import type { Category } from '../types/common.types';
+import type { Category } from '../types/category.types';
 import type { Post } from '../types/post.types';
 import type { Comment } from '../types/comment.types';
 
@@ -13,6 +13,7 @@ export const mockUsers: User[] = [
     is_banned: false,
     is_suspended: false,
     created_at: new Date().toISOString(),
+    avatar_url: '',
   },
   {
     id: '22222222-2222-2222-2222-222222222222',
@@ -23,6 +24,7 @@ export const mockUsers: User[] = [
     is_banned: false,
     is_suspended: false,
     created_at: new Date().toISOString(),
+    avatar_url: '',
   },
   {
     id: '33333333-3333-3333-3333-333333333333',
@@ -33,15 +35,27 @@ export const mockUsers: User[] = [
     is_banned: false,
     is_suspended: false,
     created_at: new Date().toISOString(),
+    avatar_url: '',
   }
 ];
 
 export const mockCategories = [
-  { id: 'cat-1', name: 'Studies', emoji: '📚', description: 'Academic discussions and study help' },
-  { id: 'cat-2', name: 'Placements', emoji: '💼', description: 'Career, internships, and interviews' },
-  { id: 'cat-3', name: 'Mental Health', emoji: '😔', description: 'Safe space for support' },
-  { id: 'cat-4', name: 'Relationships', emoji: '❤️', description: 'Dating and friendships' },
-  { id: 'cat-5', name: 'College Life', emoji: '🏫', description: 'Dorm life and campus events' },
+  { id: 'cat-1', name: 'Studies', emoji: '📚', description: 'Academic discussions and study help', slug: 'studies', postCount: 150, isActive: true },
+  { id: 'cat-2', name: 'Placements', emoji: '💼', description: 'Career, internships, and interviews', slug: 'placements', postCount: 200, isActive: true },
+  { id: 'cat-3', name: 'Mental Health', emoji: '😔', description: 'Safe space for support', slug: 'mental-health', postCount: 85, isActive: true },
+  { id: 'cat-4', name: 'Relationships', emoji: '❤️', description: 'Dating and friendships', slug: 'relationships', postCount: 120, isActive: true },
+  { id: 'cat-5', name: 'College Life', emoji: '🏫', description: 'Dorm life and campus events', slug: 'college-life', postCount: 300, isActive: true },
+];
+
+export const mockTags = [
+  { id: 'tag-1', name: 'Internship', slug: 'internship' },
+  { id: 'tag-2', name: 'FAANG', slug: 'faang' },
+  { id: 'tag-3', name: 'Exams', slug: 'exams' }
+];
+
+export const mockNotifications = [
+  { id: 'notif-1', user_id: mockUsers[0].id, type: 'COMMENT', title: 'New comment', message: 'Someone replied to your post', is_read: false, created_at: new Date().toISOString() },
+  { id: 'notif-2', user_id: mockUsers[0].id, type: 'REACTION', title: 'New reaction', message: 'Someone reacted to your comment', is_read: true, created_at: new Date().toISOString() }
 ];
 
 export const mockPosts = [
@@ -59,7 +73,8 @@ export const mockPosts = [
     updated_at: new Date().toISOString(),
     author_username: mockUsers[0].username,
     category_name: 'Studies',
-    category_emoji: '📚'
+    category_emoji: '📚',
+    view_count: 1400
   },
   {
     id: 'post-2',
@@ -75,7 +90,8 @@ export const mockPosts = [
     updated_at: new Date().toISOString(),
     author_username: mockUsers[1].username,
     category_name: 'Placements',
-    category_emoji: '💼'
+    category_emoji: '💼',
+    view_count: 3250
   },
   {
     id: 'post-3',
@@ -91,7 +107,8 @@ export const mockPosts = [
     updated_at: new Date().toISOString(),
     author_username: null,
     category_name: 'Mental Health',
-    category_emoji: '😔'
+    category_emoji: '😔',
+    view_count: 850
   }
 ];
 
@@ -119,3 +136,4 @@ export const mockComments = [
     author_username: null
   }
 ];
+

@@ -3,11 +3,11 @@ import type { User } from '../../types/user.types';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
 import { formatShort } from '../../utils/dateFormat';
-import { ROLE_LABELS, STATUS_LABELS } from '../../utils/constants';
+import { ROLE_LABELS } from '../../utils/constants';
 import { cn } from '../../utils/cn';
 
 interface UserManagementTableProps {
-  users: User[];
+  users: (User & { post_count?: number })[];
 }
 
 export function UserManagementTable({ users }: UserManagementTableProps) {
@@ -68,20 +68,20 @@ export function UserManagementTable({ users }: UserManagementTableProps) {
                 <td className="py-3 px-4">
                   <Badge
                     variant={
-                      user.status === 'ACTIVE'
-                        ? 'success'
-                        : user.status === 'BANNED'
+                      user.is_banned
                         ? 'destructive'
-                        : 'warning'
+                        : user.is_suspended
+                        ? 'warning'
+                        : 'success'
                     }
                   >
-                    {STATUS_LABELS[user.status]}
+                    {user.is_banned ? 'BANNED' : user.is_suspended ? 'SUSPENDED' : 'ACTIVE'}
                   </Badge>
                 </td>
                 <td className="py-3 px-4 text-on-surface-variant">
-                  {formatShort(user.createdAt)}
+                  {formatShort(user.created_at)}
                 </td>
-                <td className="py-3 px-4 text-on-surface-variant">{user.postCount}</td>
+                <td className="py-3 px-4 text-on-surface-variant">{user.post_count ?? 0}</td>
                 <td className="py-3 px-4">
                   <div className="flex items-center justify-end gap-2">
                     <Button

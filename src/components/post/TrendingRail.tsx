@@ -4,7 +4,7 @@ import { mockPosts } from '../../utils/mockData';
 
 export function TrendingRail() {
   const topPosts = [...mockPosts]
-    .sort((a, b) => b.viewCount - a.viewCount)
+    .sort((a, b) => b.view_count - a.view_count)
     .slice(0, 5);
 
   return (
@@ -26,9 +26,9 @@ export function TrendingRail() {
                 {post.title}
               </Link>
               <div className="flex items-center gap-2 mt-1 text-xs text-muted-text">
-                <span>{post.category.emoji} {post.category.name}</span>
+                <span>{post.category_emoji} {post.category_name}</span>
                 <span>·</span>
-                <span>{post.viewCount.toLocaleString()} views</span>
+                <span>{post.view_count?.toLocaleString()} views</span>
               </div>
             </div>
           </li>

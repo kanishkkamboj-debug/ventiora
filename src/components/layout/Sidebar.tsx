@@ -6,7 +6,7 @@ import { mockPosts } from '../../utils/mockData';
 
 function TrendingWidget() {
   const topPosts = [...mockPosts]
-    .sort((a, b) => b.viewCount - a.viewCount)
+    .sort((a, b) => b.view_count - a.view_count)
     .slice(0, 4);
 
   return (
@@ -28,7 +28,7 @@ function TrendingWidget() {
                 {post.title}
               </Link>
               <p className="text-xs text-muted-text mt-0.5">
-                {post.viewCount.toLocaleString()} views
+                {post.view_count?.toLocaleString()} views
               </p>
             </div>
           </li>
@@ -43,7 +43,7 @@ function CategoryLinks() {
     <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4">
       <h3 className="text-sm font-bold text-on-surface mb-3">Categories</h3>
       <ul className="space-y-1">
-        {mockCategories.map((cat) => (
+        {mockCategories.map((cat: any) => (
           <li key={cat.id}>
             <Link
               to={`/?category=${cat.slug}`}

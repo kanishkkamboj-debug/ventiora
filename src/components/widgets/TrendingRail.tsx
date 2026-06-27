@@ -1,39 +1,54 @@
 import React from 'react';
-import { Flame, TrendingUp, Clock } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export function TrendingRail() {
-  const trendingTopics = [
-    { title: 'Finals survival guide', views: '2.4k', icon: Flame, color: 'text-error' },
-    { title: 'Amazon OA results', views: '1.8k', icon: TrendingUp, color: 'text-primary-container' },
-    { title: 'Cafeteria hacks', views: '956', icon: Clock, color: 'text-muted-text' },
-  ];
+const trendingTopics = [
+  {
+    id: '1',
+    rank: 1,
+    category: 'Campus News',
+    title: 'Library extending hours for finals week starting Monday',
+    views: '1.2k',
+  },
+  {
+    id: '2',
+    rank: 2,
+    category: 'Career',
+    title: 'Summer 2025 Internship Megathread',
+    views: '856',
+  },
+  {
+    id: '3',
+    rank: 3,
+    category: 'Events',
+    title: 'Free pizza at the student union today at 1pm!',
+    views: '540',
+  },
+];
 
+export function TrendingRail() {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-outline-variant p-6 sticky top-24">
-      <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-        <TrendingUp className="h-5 w-5 text-primary-container" />
-        Trending Now
+    <div className="bg-surface border border-border rounded-xl p-6 sticky top-24 shadow-sm dark:shadow-none">
+      <h3 className="font-headline-md text-headline-md text-on-background mb-4 flex items-center gap-2">
+        <TrendingUp className="text-primary w-5 h-5" /> Trending Topics
       </h3>
       <div className="space-y-4">
-        {trendingTopics.map((topic, i) => {
-          const Icon = topic.icon;
-          return (
-            <Link key={i} to="/search" className="block group">
-              <div className="flex items-start gap-3">
-                <div className={`mt-0.5 ${topic.color}`}>
-                  <Icon className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="font-medium text-on-surface group-hover:text-primary-container transition-colors text-sm">
-                    {topic.title}
-                  </p>
-                  <p className="text-xs text-muted-text mt-0.5">{topic.views} views</p>
-                </div>
+        {trendingTopics.map((topic, index) => (
+          <React.Fragment key={topic.id}>
+            <Link to={`/search?q=${topic.category}`} className="block group">
+              <div className="font-label-sm text-label-sm text-muted-text mb-1">
+                {topic.rank} • {topic.category}
+              </div>
+              <div className="font-label-md text-label-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+                {topic.title}
+              </div>
+              <div className="font-label-sm text-label-sm text-muted-text mt-1">
+                {topic.views} views
               </div>
             </Link>
-          );
-        })}
+            {index < trendingTopics.length - 1 && <hr className="border-border" />}
+          </React.Fragment>
+        ))}
       </div>
       
       <div className="mt-8">

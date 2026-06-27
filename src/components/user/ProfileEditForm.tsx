@@ -8,7 +8,7 @@ import type { User } from '../../types/user.types';
 interface ProfileEditFormProps {
   user: User;
   onCancel: () => void;
-  onSave: (data: { username: string; bio: string; avatarUrl: string }) => void;
+  onSave: (data: { username: string; bio: string; avatar_url: string }) => void;
 }
 
 export function ProfileEditForm({ user, onCancel, onSave }: ProfileEditFormProps) {
@@ -16,7 +16,7 @@ export function ProfileEditForm({ user, onCancel, onSave }: ProfileEditFormProps
     defaultValues: {
       username: user.username,
       bio: user.bio ?? '',
-      avatarUrl: user.avatarUrl ?? '',
+      avatar_url: user.avatar_url ?? '',
     },
   });
 
@@ -41,7 +41,7 @@ export function ProfileEditForm({ user, onCancel, onSave }: ProfileEditFormProps
       <Input
         label="Avatar URL"
         placeholder="https://…"
-        {...register('avatarUrl')}
+        {...register('avatar_url')}
       />
 
       <div className="flex justify-end gap-3 pt-2 border-t border-outline-variant">

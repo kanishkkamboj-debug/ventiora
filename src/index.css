@@ -1,107 +1,225 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Antic&family=Signifier&family=Libre+Baskerville&family=Lora&family=IBM+Plex+Mono&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── Light mode tokens ───────────────────────────────────────────── */
+/* ── DEFAULT THEME (Theme 2 - Sage Green) ──────────────────────── */
 :root {
-  --surface: #FDFDFD;
-  --surface-dim: #dadada;
-  --surface-bright: #f9f9f9;
-  --surface-container-lowest: #ffffff;
-  --surface-container-low: #f3f3f3;
-  --surface-container: #eeeeee;
-  --surface-container-high: #e8e8e8;
-  --surface-container-highest: #e2e2e2;
-  --on-surface: #1b1b1b;
-  --on-surface-variant: #484557;
-  --inverse-surface: #303030;
-  --inverse-on-surface: #f1f1f1;
-  --outline: #787588;
-  --outline-variant: #c9c3da;
-  --surface-tint: #5b2efc;
-  --primary: #4500e1;
-  --on-primary: #ffffff;
-  --primary-container: #5e33ff;
-  --on-primary-container: #dfd8ff;
-  --inverse-primary: #c8bfff;
-  --secondary: #5a5f62;
-  --on-secondary: #ffffff;
-  --secondary-container: #dce0e4;
-  --on-secondary-container: #5e6367;
-  --tertiary: #852b00;
-  --on-tertiary: #ffffff;
-  --tertiary-container: #ad3b00;
-  --on-tertiary-container: #ffd4c5;
-  --error: #ba1a1a;
-  --on-error: #ffffff;
-  --error-container: #ffdad6;
-  --on-error-container: #93000a;
-  --background: #f9f9f9;
-  --on-background: #1b1b1b;
-  --muted-text: #64748B;
-  --border: #E2E8F0;
+  --background: rgb(248, 247, 244);
+  --foreground: rgb(26, 31, 46);
+  --card: rgb(255, 255, 255);
+  --card-foreground: rgb(26, 31, 46);
+  --popover: rgb(255, 255, 255);
+  --popover-foreground: rgb(26, 31, 46);
+  --primary: rgb(124, 144, 130);
+  --primary-foreground: rgb(255, 255, 255);
+  --secondary: rgb(206, 212, 191);
+  --secondary-foreground: rgb(26, 31, 46);
+  --muted: rgb(232, 230, 225);
+  --muted-foreground: rgb(107, 114, 128);
+  --accent: rgb(191, 201, 187);
+  --accent-foreground: rgb(26, 31, 46);
+  --destructive: rgb(199, 62, 58);
+  --destructive-foreground: rgb(255, 255, 255);
+  --border: rgb(232, 230, 225);
+  --input: rgb(255, 255, 255);
+  --ring: rgb(124, 144, 130);
+
+  --font-sans: 'Antic', ui-sans-serif, sans-serif;
+  --font-serif: 'Signifier', Georgia, serif;
 }
 
-/* ── Dark mode tokens ─────────────────────────────────────────────── */
 [data-theme='dark'] {
-  --surface: #1f1f1f;
-  --surface-dim: #141414;
-  --surface-bright: #2a2a2a;
-  --surface-container-lowest: #111111;
-  --surface-container-low: #1e1e1e;
-  --surface-container: #242424;
-  --surface-container-high: #2c2c2c;
-  --surface-container-highest: #333333;
-  --on-surface: #e2e2e2;
-  --on-surface-variant: #cbc8d8;
-  --inverse-surface: #e2e2e2;
-  --inverse-on-surface: #303030;
-  --outline: #948fa5;
-  --outline-variant: #47444f;
-  --surface-tint: #7c5cff;
-  --primary: #7c5cff;
-  --on-primary: #ffffff;
-  --primary-container: #5e33ff;
-  --on-primary-container: #dfd8ff;
-  --inverse-primary: #4500e1;
-  --secondary: #b9bfc3;
-  --on-secondary: #303030;
-  --secondary-container: #3e4347;
-  --on-secondary-container: #dce0e4;
-  --tertiary: #ffb599;
-  --on-tertiary: #4d1500;
-  --tertiary-container: #ad3b00;
-  --on-tertiary-container: #ffd4c5;
-  --error: #ffb4ab;
-  --on-error: #690005;
-  --error-container: #93000a;
-  --on-error-container: #ffdad6;
-  --background: #141414;
-  --on-background: #e2e2e2;
-  --muted-text: #94a3b8;
-  --border: #2c2c2c;
+  --background: rgb(10, 10, 10);
+  --foreground: rgb(245, 245, 245);
+  --card: rgb(18, 18, 18);
+  --card-foreground: rgb(245, 245, 245);
+  --popover: rgb(18, 18, 18);
+  --popover-foreground: rgb(245, 245, 245);
+  --primary: rgb(124, 144, 130);
+  --primary-foreground: rgb(0, 0, 0);
+  --secondary: rgb(26, 26, 26);
+  --secondary-foreground: rgb(245, 245, 245);
+  --muted: rgb(26, 26, 26);
+  --muted-foreground: rgb(160, 160, 160);
+  --accent: rgb(54, 68, 58);
+  --accent-foreground: rgb(245, 245, 245);
+  --destructive: rgb(239, 68, 68);
+  --destructive-foreground: rgb(255, 255, 255);
+  --border: rgb(42, 42, 42);
+  --input: rgb(18, 18, 18);
+  --ring: rgb(124, 144, 130);
+}
+
+
+/* ── THEME 1 (Teal / Cyan) ─────────────────────────────────────── */
+[data-theme='theme-1'] {
+  --background: rgb(232, 240, 240);
+  --foreground: rgb(10, 74, 85);
+  --card: rgb(242, 247, 247);
+  --card-foreground: rgb(10, 74, 85);
+  --popover: rgb(242, 247, 247);
+  --popover-foreground: rgb(10, 74, 85);
+  --primary: rgb(6, 133, 142);
+  --primary-foreground: rgb(255, 255, 255);
+  --secondary: rgb(217, 234, 234);
+  --secondary-foreground: rgb(10, 74, 85);
+  --muted: rgb(224, 234, 234);
+  --muted-foreground: rgb(66, 122, 126);
+  --accent: rgb(201, 229, 231);
+  --accent-foreground: rgb(10, 74, 85);
+  --destructive: rgb(209, 56, 56);
+  --destructive-foreground: rgb(255, 255, 255);
+  --border: rgb(205, 224, 226);
+  --input: rgb(217, 234, 234);
+  --ring: rgb(6, 133, 142);
+  
+  --font-sans: 'Courier New', monospace;
+  --font-serif: 'Courier New', monospace;
+}
+
+[data-theme='dark'][data-theme='theme-1'], 
+[data-theme='theme-1'] .dark {
+  --background: rgb(10, 26, 32);
+  --foreground: rgb(77, 232, 232);
+  --card: rgb(12, 32, 37);
+  --card-foreground: rgb(77, 232, 232);
+  --popover: rgb(12, 32, 37);
+  --popover-foreground: rgb(77, 232, 232);
+  --primary: rgb(77, 232, 232);
+  --primary-foreground: rgb(10, 26, 32);
+  --secondary: rgb(22, 73, 85);
+  --secondary-foreground: rgb(77, 232, 232);
+  --muted: rgb(15, 48, 57);
+  --muted-foreground: rgb(54, 165, 165);
+  --accent: rgb(22, 73, 85);
+  --accent-foreground: rgb(77, 232, 232);
+  --destructive: rgb(232, 60, 60);
+  --destructive-foreground: rgb(242, 242, 242);
+  --border: rgb(22, 73, 85);
+  --input: rgb(22, 73, 85);
+  --ring: rgb(77, 232, 232);
+}
+
+
+/* ── THEME 3 (Blue / Gold) ─────────────────────────────────────── */
+[data-theme='theme-3'] {
+  --background: rgb(245, 247, 250);
+  --foreground: rgb(26, 34, 56);
+  --card: rgb(227, 234, 242);
+  --card-foreground: rgb(26, 34, 56);
+  --popover: rgb(255, 251, 230);
+  --popover-foreground: rgb(26, 34, 56);
+  --primary: rgb(58, 91, 160);
+  --primary-foreground: rgb(255, 251, 230);
+  --secondary: rgb(247, 200, 115);
+  --secondary-foreground: rgb(26, 34, 56);
+  --muted: rgb(229, 229, 223);
+  --muted-foreground: rgb(58, 91, 160);
+  --accent: rgb(110, 163, 193);
+  --accent-foreground: rgb(255, 251, 230);
+  --destructive: rgb(45, 30, 47);
+  --destructive-foreground: rgb(255, 251, 230);
+  --border: rgb(176, 184, 193);
+  --input: rgb(110, 163, 193);
+  --ring: rgb(247, 200, 115);
+
+  --font-sans: 'Libre Baskerville', serif;
+  --font-serif: 'Libre Baskerville', serif;
+}
+
+[data-theme='dark'][data-theme='theme-3'], 
+[data-theme='theme-3'] .dark {
+  --background: rgb(24, 26, 36);
+  --foreground: rgb(230, 234, 243);
+  --card: rgb(35, 36, 58);
+  --card-foreground: rgb(230, 234, 243);
+  --popover: rgb(35, 36, 58);
+  --popover-foreground: rgb(255, 224, 102);
+  --primary: rgb(58, 91, 160);
+  --primary-foreground: rgb(255, 224, 102);
+  --secondary: rgb(255, 224, 102);
+  --secondary-foreground: rgb(35, 36, 58);
+  --muted: rgb(29, 30, 47);
+  --muted-foreground: rgb(122, 136, 161);
+  --accent: rgb(188, 205, 240);
+  --accent-foreground: rgb(24, 26, 36);
+  --destructive: rgb(160, 74, 108);
+  --destructive-foreground: rgb(255, 224, 102);
+  --border: rgb(45, 46, 62);
+  --input: rgb(58, 91, 160);
+  --ring: rgb(255, 224, 102);
+}
+
+/* ── THEME 4 (Purple) ──────────────────────────────────────────── */
+[data-theme='theme-4'] {
+  --background: rgb(253, 253, 253);
+  --foreground: rgb(0, 0, 0);
+  --card: rgb(253, 253, 253);
+  --card-foreground: rgb(0, 0, 0);
+  --popover: rgb(252, 252, 252);
+  --popover-foreground: rgb(0, 0, 0);
+  --primary: rgb(112, 51, 255);
+  --primary-foreground: rgb(255, 255, 255);
+  --secondary: rgb(237, 240, 244);
+  --secondary-foreground: rgb(8, 8, 8);
+  --muted: rgb(245, 245, 245);
+  --muted-foreground: rgb(82, 82, 82);
+  --accent: rgb(226, 235, 255);
+  --accent-foreground: rgb(30, 105, 220);
+  --destructive: rgb(229, 75, 79);
+  --destructive-foreground: rgb(255, 255, 255);
+  --border: rgb(231, 231, 238);
+  --input: rgb(235, 235, 235);
+  --ring: rgb(0, 0, 0);
+
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Lora', serif;
+}
+
+[data-theme='dark'][data-theme='theme-4'], 
+[data-theme='theme-4'] .dark {
+  --background: rgb(26, 27, 30);
+  --foreground: rgb(240, 240, 240);
+  --card: rgb(34, 35, 39);
+  --card-foreground: rgb(240, 240, 240);
+  --popover: rgb(34, 35, 39);
+  --popover-foreground: rgb(240, 240, 240);
+  --primary: rgb(140, 92, 255);
+  --primary-foreground: rgb(255, 255, 255);
+  --secondary: rgb(42, 44, 51);
+  --secondary-foreground: rgb(240, 240, 240);
+  --muted: rgb(42, 44, 51);
+  --muted-foreground: rgb(160, 160, 160);
+  --accent: rgb(30, 41, 59);
+  --accent-foreground: rgb(121, 192, 255);
+  --destructive: rgb(248, 113, 113);
+  --destructive-foreground: rgb(255, 255, 255);
+  --border: rgb(51, 53, 58);
+  --input: rgb(51, 53, 58);
+  --ring: rgb(140, 92, 255);
 }
 
 /* ── Base styles ──────────────────────────────────────────────────── */
 @layer base {
   * {
     box-sizing: border-box;
+    border-color: var(--border);
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans);
     background-color: var(--background);
-    color: var(--on-surface);
+    color: var(--foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans);
     font-weight: 700;
-    color: var(--on-surface);
   }
 
   a {
@@ -112,31 +230,14 @@
   a:hover {
     text-decoration: underline;
   }
-
-  ::selection {
-    background-color: var(--on-primary-container);
-    color: var(--primary);
-  }
 }
 
-/* ── Shimmer animation for skeleton ──────────────────────────────── */
 @layer utilities {
-  .shimmer {
-    background: linear-gradient(
-      90deg,
-      var(--surface-container) 25%,
-      var(--surface-container-high) 50%,
-      var(--surface-container) 75%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-  }
-
   .prose-post {
-    font-family: 'Noto Serif', ui-serif, Georgia, serif;
+    font-family: var(--font-serif);
     line-height: 1.75;
     font-size: 1rem;
-    color: var(--on-surface);
+    color: var(--foreground);
   }
 
   .prose-post p {
@@ -144,23 +245,17 @@
   }
 
   .prose-post h2 {
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+    font-family: var(--font-sans);
     font-size: 1.25rem;
     font-weight: 700;
     margin: 1.5em 0 0.5em;
   }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-
-@keyframes fadeIn {
-  0% { opacity: 0; transform: scale(0.95); }
-  100% { opacity: 1; transform: scale(1); }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.15s ease-out;
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

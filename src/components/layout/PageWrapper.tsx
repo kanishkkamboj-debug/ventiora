@@ -9,15 +9,15 @@ interface PageWrapperProps {
 
 export function PageWrapper({ children, showTrending = false }: PageWrapperProps) {
   return (
-    <div className="min-h-screen bg-surface flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background text-on-background font-body-md transition-colors duration-300">
       <Navbar />
-      <main className="flex-1 container mx-auto px-4 py-8">
+      <main className="flex-grow px-margin-mobile md:px-gutter max-w-container-max mx-auto w-full py-stack-lg">
         {showTrending ? (
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="lg:col-span-3">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="md:col-span-8 space-y-6">
               {children}
             </div>
-            <div className="hidden lg:block">
+            <div className="md:col-span-4 hidden md:block space-y-6">
               <TrendingRail />
             </div>
           </div>
@@ -25,6 +25,23 @@ export function PageWrapper({ children, showTrending = false }: PageWrapperProps
           children
         )}
       </main>
+      
+      {/* Footer */}
+      <footer className="bg-surface-container-lowest dark:bg-inverse-surface w-full mt-auto border-t border-border dark:border-outline-variant">
+        <div className="flex flex-col md:flex-row justify-between items-center py-stack-lg px-gutter max-w-container-max mx-auto">
+          <div className="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-primary-fixed-variant mb-4 md:mb-0">
+            Unfiltered Campus
+          </div>
+          <div className="flex flex-wrap justify-center gap-6 font-body-md text-body-md font-label-sm text-label-sm">
+            <a className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100" href="#">Guidelines</a>
+            <a className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100" href="#">Privacy</a>
+            <a className="text-muted-text dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:underline transition-all opacity-80 hover:opacity-100" href="#">Terms</a>
+          </div>
+          <div className="mt-4 md:mt-0 font-label-sm text-label-sm text-muted-text text-center md:text-right">
+            © 2024 Unfiltered Campus. For students, by students.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

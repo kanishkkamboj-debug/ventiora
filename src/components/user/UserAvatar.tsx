@@ -23,7 +23,7 @@ export function UserAvatar({ author, size = 'md', showUsername = false, clickabl
 
   const content = (
     <div className="flex items-center gap-2">
-      <Avatar avatarUrl={author.user.avatarUrl ?? undefined} username={author.user.username} size={size} />
+      <Avatar avatarUrl={author.user.avatar_url ?? undefined} username={author.user.username} size={size} />
       {showUsername && (
         <span className="text-sm font-semibold text-on-surface">{author.user.username}</span>
       )}

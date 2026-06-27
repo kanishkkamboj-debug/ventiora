@@ -47,7 +47,7 @@ export function CommentForm({ postId, parentId, onCancel, compact }: CommentForm
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex gap-3">
-      <Avatar avatarUrl={user.avatarUrl} username={user.username} isAnonymous={isAnonymous} size="sm" />
+      <Avatar avatarUrl={user.avatar_url} username={user.username} isAnonymous={isAnonymous} size="sm" />
       <div className="flex-1">
         <textarea
           {...register('content', validators.commentContent)}

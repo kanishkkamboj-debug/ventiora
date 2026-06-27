@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { mockPosts, mockComments } from '../../utils/mockData';
-import { PostCard } from '../post/PostCard';
+import { PostCard } from '../widgets/PostCard';
 import { formatRelative } from '../../utils/dateFormat';
-import { Avatar } from '../common/Avatar';
 import { cn } from '../../utils/cn';
 
 type Tab = 'posts' | 'comments';
@@ -16,10 +15,10 @@ export function UserHistoryTabs({ userId, username }: UserHistoryTabsProps) {
   const [tab, setTab] = useState<Tab>('posts');
 
   const userPosts = mockPosts.filter(
-    (p) => !p.author.isAnonymous && p.author.user.id === userId,
+    (p) => !p.is_anonymous && p.user_id === userId,
   );
   const userComments = mockComments.filter(
-    (c) => !c.author.isAnonymous && c.author.user.id === userId,
+    (c) => !c.is_anonymous && c.user_id === userId,
   );
 
   return (
@@ -47,7 +46,7 @@ export function UserHistoryTabs({ userId, username }: UserHistoryTabsProps) {
           {userPosts.length === 0 ? (
             <p className="text-sm text-muted-text">No public posts yet.</p>
           ) : (
-            userPosts.map((p) => <PostCard key={p.id} post={p} />)
+            userPosts.map((p) => <PostCard key={p.id} post={p as any} />)
           )}
         </div>
       )}
@@ -63,7 +62,7 @@ export function UserHistoryTabs({ userId, username }: UserHistoryTabsProps) {
                 className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4"
               >
                 <p className="text-sm font-serif text-on-surface">{c.content}</p>
-                <p className="text-xs text-muted-text mt-2">{formatRelative(c.createdAt)}</p>
+                <p className="text-xs text-muted-text mt-2">{formatRelative(c.created_at)}</p>
               </div>
             ))
           )}

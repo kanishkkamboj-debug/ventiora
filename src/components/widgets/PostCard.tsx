@@ -1,68 +1,76 @@
 import React from 'react';
-import { Heart, MessageCircle, MoreHorizontal, Pin, Star } from 'lucide-react';
+import { ThumbsUp, MessageCircle, Bookmark, UserX, User, Pin, Star, MoreHorizontal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Avatar } from '../ui/Avatar';
-import { Badge } from '../ui/Badge';
 import { formatDistanceToNow } from '../../utils/date';
-import { cn } from '../ui/Button';
 
 interface PostCardProps {
-  post: any; // We'll type this properly later with the Post type
+  post: any; // Type to be refined
   compact?: boolean;
 }
 
 export function PostCard({ post, compact = false }: PostCardProps) {
+  // STRICT ANONYMITY LOGIC
+  // If a post is anonymous, NEVER display the real username.
+  const isAnonymous = post.is_anonymous === true;
+  const displayName = isAnonymous ? 'Anonymous' : `@${post.author_username}`;
+
   return (
-    <article className="bg-white rounded-2xl p-5 shadow-sm border border-outline-variant hover:border-outline transition-colors group">
+    <article className="bg-surface rounded-xl p-6 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:hover:shadow-none transition-all border border-transparent hover:border-border group">
       <div className="flex justify-between items-start mb-3">
         <div className="flex items-center gap-3">
-          <Avatar 
-            user={{ username: post.author_username } as any} 
-            isAnonymous={post.is_anonymous} 
-            size="sm" 
-          />
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className={cn("text-sm font-bold", post.is_anonymous ? "text-muted-text" : "text-on-surface")}>
-                {post.is_anonymous ? 'Anonymous' : `@${post.author_username}`}
-              </span>
-              <span className="text-xs text-muted-text">•</span>
-              <span className="text-xs text-muted-text">{formatDistanceToNow(new Date(post.created_at))}</span>
+          {isAnonymous ? (
+            <div className="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+              <UserX className="w-4 h-4" />
             </div>
-            {!compact && (
-              <Badge variant="secondary" className="w-fit mt-1 gap-1">
-                <span>{post.category_emoji}</span> {post.category_name}
-              </Badge>
-            )}
+          ) : (
+            <div className="shrink-0">
+              <Avatar user={{ username: post.author_username } as any} size="sm" />
+            </div>
+          )}
+          
+          <div className="flex flex-col">
+            <span className={`font-label-sm text-label-sm font-semibold ${isAnonymous ? 'text-muted-text' : 'text-primary'}`}>
+              {displayName}
+            </span>
+            <span className="font-label-sm text-label-sm text-muted-text">
+              {formatDistanceToNow(new Date(post.created_at))} • {post.category_name} {post.category_emoji}
+            </span>
           </div>
         </div>
-        <button className="text-muted-text hover:bg-surface p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-          <MoreHorizontal className="h-5 w-5" />
+        
+        <button className="text-muted-text hover:bg-surface-container-low p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+          <MoreHorizontal className="w-5 h-5" />
         </button>
       </div>
 
       <Link to={`/posts/${post.id}`} className="block">
-        <h2 className="text-lg font-bold text-on-surface mb-2 flex items-center gap-2">
-          {post.is_pinned && <Pin className="h-4 w-4 text-primary-container fill-primary-container" />}
-          {post.is_featured && <Star className="h-4 w-4 text-secondary-container fill-secondary-container" />}
-          {post.title}
+        <h2 className="font-headline-md text-headline-md text-on-background mb-2 flex items-center gap-2">
+          {post.is_pinned && <Pin className="h-4 w-4 text-primary shrink-0" />}
+          {post.is_featured && <Star className="h-4 w-4 text-secondary shrink-0" />}
+          <span className="line-clamp-2">{post.title}</span>
         </h2>
+        
         {!compact && (
-          <p className="text-on-surface/80 text-sm line-clamp-3 leading-relaxed mb-4 font-serif">
+          <p className="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">
             {post.content}
           </p>
         )}
       </Link>
 
-      <div className="flex items-center gap-4 mt-4 pt-4 border-t border-outline-variant/50">
-        <button className="flex items-center gap-1.5 text-muted-text hover:text-error transition-colors group/btn">
-          <Heart className="h-4 w-4 group-hover/btn:fill-error" />
-          <span className="text-xs font-semibold">12</span>
+      <div className="flex items-center gap-4 text-muted-text font-label-sm text-label-sm mt-2">
+        <button className="flex items-center gap-1.5 hover:text-primary transition-colors group/btn">
+          <ThumbsUp className="w-4 h-4 group-hover/btn:fill-primary" /> 
+          <span>12</span>
         </button>
-        <Link to={`/posts/${post.id}`} className="flex items-center gap-1.5 text-muted-text hover:text-primary-container transition-colors group/btn">
-          <MessageCircle className="h-4 w-4 group-hover/btn:fill-primary-container" />
-          <span className="text-xs font-semibold">4</span>
+        <Link to={`/posts/${post.id}`} className="flex items-center gap-1.5 hover:text-primary transition-colors group/btn">
+          <MessageCircle className="w-4 h-4 group-hover/btn:fill-primary" /> 
+          <span>4 Comments</span>
         </Link>
+        <button className="flex items-center gap-1.5 hover:text-primary transition-colors ml-auto group/btn">
+          <Bookmark className="w-4 h-4 group-hover/btn:fill-primary" /> 
+          <span className="hidden sm:inline">Save</span>
+        </button>
       </div>
     </article>
   );

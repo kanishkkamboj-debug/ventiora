@@ -1,37 +1,60 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'light' | 'dark';
+type ThemeId = 'theme-1' | 'theme-2' | 'theme-3' | 'theme-4';
+type ColorMode = 'light' | 'dark';
 
-interface ThemeContextValue {
-  theme: Theme;
-  toggleTheme: () => void;
+interface ThemeContextType {
+  theme: ThemeId;
+  setTheme: (theme: ThemeId) => void;
+  mode: ColorMode;
+  setMode: (mode: ColorMode) => void;
+  toggleMode: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const stored = localStorage.getItem('uc-theme');
-    if (stored === 'dark' || stored === 'light') return stored;
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [theme, setTheme] = useState<ThemeId>(() => {
+    const saved = localStorage.getItem('uc-theme');
+    return (saved as ThemeId) || 'theme-2';
+  });
+
+  const [mode, setMode] = useState<ColorMode>(() => {
+    const saved = localStorage.getItem('uc-mode');
+    if (saved) return saved as ColorMode;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('uc-theme', theme);
+    const root = document.documentElement;
+    // Set theme via data attribute
+    root.setAttribute('data-theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => setTheme((t) => (t === 'light' ? 'dark' : 'light'));
+  useEffect(() => {
+    localStorage.setItem('uc-mode', mode);
+    const root = document.documentElement;
+    if (mode === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [mode]);
+
+  const toggleMode = () => setMode(prev => prev === 'light' ? 'dark' : 'light');
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, mode, setMode, toggleMode }}>
       {children}
     </ThemeContext.Provider>
   );
-}
+};
 
-export function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error('useTheme must be used inside ThemeProvider');
-  return ctx;
-}
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+};
