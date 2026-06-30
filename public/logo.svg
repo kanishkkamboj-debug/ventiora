@@ -1,52 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
-  <!-- Outer speech-bubble ring with gap at top -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!--
+    Ventiora Logo
+    - Thick ring arc with rounded gap at top (~60° total gap, 30° each side from 12 o'clock)
+    - Speech bubble tail at ~5 o'clock position
+    - V lettermark with angled top cuts inside the ring
+    - Color: Soft Lavender #A8A0D4
+    Ring: center=(250,228), radius=170, stroke-width=66
+  -->
+
+  <!-- 1. Speech bubble tail (at ~5 o'clock, overlaps with ring stroke so they blend) -->
   <path
-    d="M256 48
-       C152 48 68 132 68 236
-       C68 300 100 356 150 392
-       L130 464
-       L200 424
-       C218 430 237 433 256 433
-       C360 433 444 349 444 245
-       C444 141 360 57 256 57 Z"
     fill="#A8A0D4"
-    opacity="0.15"
+    d="M 283 357
+       C 255 418 318 462 366 456
+       C 392 450 362 428 300 420
+       Z"
   />
-  <!-- Main ring -->
+
+  <!-- 2. Main ring arc: almost full circle with gap at top, rounded linecaps for the gap ends -->
+  <!-- Arc from right end of gap (335,81) clockwise around the bottom to left end of gap (165,81) -->
+  <!-- Center at (250,228), radius=170. Gap=60° total (30° each side from 12 o'clock). -->
+  <!-- Right end: angle=-60° → (250+170·cos(-60°), 228+170·sin(-60°)) = (335, 81) -->
+  <!-- Left end: angle=-120° → (250+170·cos(-120°), 228+170·sin(-120°)) = (165, 81) -->
   <path
-    d="M256 72
-       C370 72 462 152 462 256
-       C462 316 432 370 384 406"
-    stroke="#9B94CC"
-    stroke-width="44"
-    stroke-linecap="round"
     fill="none"
-  />
-  <path
-    d="M128 406
-       C80 370 50 316 50 256
-       C50 168 118 96 210 76"
-    stroke="#9B94CC"
-    stroke-width="44"
+    stroke="#A8A0D4"
+    stroke-width="66"
     stroke-linecap="round"
-    fill="none"
+    d="M 335 81 A 170 170 0 1 1 165 81"
   />
-  <!-- Tail of speech bubble -->
-  <path
-    d="M310 420 L256 490 L202 420"
-    stroke="#9B94CC"
-    stroke-width="44"
-    stroke-linejoin="round"
-    stroke-linecap="round"
-    fill="none"
-  />
-  <!-- V lettermark -->
-  <path
-    d="M168 180 L256 360 L344 180"
-    stroke="#9B94CC"
-    stroke-width="48"
-    stroke-linejoin="round"
-    stroke-linecap="round"
-    fill="none"
-  />
+
+  <!-- 3. V lettermark — two solid triangular arms that share a common tip -->
+  <!-- Left arm: outer-top-left=(158,194), tip=(250,360), inner-top-left=(208,159) -->
+  <!-- Each arm has an angled top cut perpendicular to the arm direction -->
+  <path fill="#A8A0D4" d="M 158 194 L 250 360 L 208 159 Z"/>
+
+  <!-- Right arm: outer-top-right=(342,194), inner-top-right=(292,159), tip=(250,360) -->
+  <path fill="#A8A0D4" d="M 342 194 L 292 159 L 250 360 Z"/>
 </svg>
