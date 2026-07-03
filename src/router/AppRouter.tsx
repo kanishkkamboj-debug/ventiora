@@ -95,6 +95,13 @@ export function AppRouter() {
           </PublicLayout>
         }
       />
+      {/*
+        ⚠️  NEVER wrap /login in <ProtectedRoute>.
+        Doing so creates an infinite redirect loop:
+          unauthenticated user → /login (protected) → redirect to /login → …
+        /login, /register, /forgot-password, and /reset-password must always
+        remain bare public <Route> elements.
+      */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
