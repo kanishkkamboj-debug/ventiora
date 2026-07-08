@@ -1,5 +1,4 @@
-﻿export const APP_NAME = 'Ventiora';
-export const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080/api';
+export const APP_NAME = 'Ventiora';
 export const CONTAINER_MAX = '1120px';
 export const PAGE_SIZE = 10;
 
