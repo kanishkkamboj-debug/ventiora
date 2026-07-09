@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { mockPosts, mockComments } from '../../utils/mockData';
 import { PostCard } from '../widgets/PostCard';
-import { formatRelative } from '../../utils/dateFormat';
 import { cn } from '../../utils/cn';
+
+// NOTE (Prompt 26): replace mockPosts/mockComments here with real Supabase
+// queries (usersApi.getUserPosts, usersApi.getUserComments) keyed by userId.
 
 type Tab = 'posts' | 'comments';
 
@@ -23,11 +25,19 @@ export function UserHistoryTabs({ userId, username: _username }: UserHistoryTabs
 
   return (
     <div>
-      {/* Tab switcher */}
-      <div className="flex border-b border-outline-variant mb-5">
+      {/* Tab switcher — ARIA tablist for keyboard/screen-reader access */}
+      <div
+        role="tablist"
+        aria-label="User history"
+        className="flex border-b border-outline-variant mb-5"
+      >
         {(['posts', 'comments'] as Tab[]).map((t) => (
           <button
             key={t}
+            role="tab"
+            id={`tab-${t}`}
+            aria-selected={tab === t}
+            aria-controls={`tabpanel-${t}`}
             onClick={() => setTab(t)}
             className={cn(
               'px-4 py-2.5 text-sm font-semibold capitalize transition-colors border-b-2 -mb-px',
@@ -41,35 +51,51 @@ export function UserHistoryTabs({ userId, username: _username }: UserHistoryTabs
         ))}
       </div>
 
-      {tab === 'posts' && (
-        <div className="flex flex-col gap-4">
-          {userPosts.length === 0 ? (
-            <p className="text-sm text-muted-text">No public posts yet.</p>
-          ) : (
-            userPosts.map((p) => <PostCard key={p.id} post={p as any} />)
-          )}
-        </div>
-      )}
+      {/* Posts panel */}
+      <div
+        role="tabpanel"
+        id="tabpanel-posts"
+        aria-labelledby="tab-posts"
+        hidden={tab !== 'posts'}
+      >
+        {tab === 'posts' && (
+          <div className="flex flex-col gap-4">
+            {userPosts.length === 0 ? (
+              <p className="text-sm text-muted-text">No public posts yet.</p>
+            ) : (
+              userPosts.map((p) => <PostCard key={p.id} post={p as any} />)
+            )}
+          </div>
+        )}
+      </div>
 
-      {tab === 'comments' && (
-        <div className="flex flex-col gap-3">
-          {userComments.length === 0 ? (
-            <p className="text-sm text-muted-text">No public comments yet.</p>
-          ) : (
-            userComments.map((c) => (
-              <div
-                key={c.id}
-                className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4"
-              >
-                <p className="text-sm font-serif text-on-surface">{c.content}</p>
-                <p className="text-xs text-muted-text mt-2 font-serif">
-                  {new Date(c.createdAt).toLocaleDateString()}
-                </p>
-              </div>
-            ))
-          )}
-        </div>
-      )}
+      {/* Comments panel */}
+      <div
+        role="tabpanel"
+        id="tabpanel-comments"
+        aria-labelledby="tab-comments"
+        hidden={tab !== 'comments'}
+      >
+        {tab === 'comments' && (
+          <div className="flex flex-col gap-3">
+            {userComments.length === 0 ? (
+              <p className="text-sm text-muted-text">No public comments yet.</p>
+            ) : (
+              userComments.map((c) => (
+                <div
+                  key={c.id}
+                  className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4"
+                >
+                  <p className="text-sm font-serif text-on-surface">{c.content}</p>
+                  <p className="text-xs text-muted-text mt-2 font-serif">
+                    {new Date(c.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

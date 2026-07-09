@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar } from '../ui/Avatar';
 import { Badge } from '../ui/Badge';
 import type { User } from '../../types/user.types';
@@ -44,6 +44,29 @@ export function ProfileHeader({ user, isOwnProfile, onEdit }: ProfileHeaderProps
             <span>📝 {user.post_count ?? 0} posts</span>
             <span>💬 {user.comment_count ?? 0} comments</span>
           </div>
+          {/* Supplemental profile details (gender, age range, interests) */}
+          {(user.gender || user.age_range || (user.interests && user.interests.length > 0)) && (
+            <div className="flex flex-wrap items-center gap-3 mt-3">
+              {user.gender && (
+                <span className="text-xs bg-surface-container px-2 py-1 rounded-md text-on-surface-variant">
+                  Gender: {user.gender}
+                </span>
+              )}
+              {user.age_range && (
+                <span className="text-xs bg-surface-container px-2 py-1 rounded-md text-on-surface-variant">
+                  Age: {user.age_range}
+                </span>
+              )}
+              {user.interests?.map((interest) => (
+                <span
+                  key={interest}
+                  className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-md"
+                >
+                  #{interest}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         {isOwnProfile && (
           <Button variant="secondary" size="sm" onClick={onEdit}>
