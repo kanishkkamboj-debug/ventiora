@@ -32,10 +32,9 @@ describe('App — smoke test', () => {
   });
 
   it('renders without crashing', () => {
-    // App includes its own BrowserRouter + AuthProvider + QueryClientProvider,
-    // so we only need to provide a fresh QueryClient and Theme wrapper here.
-    // We wrap in ThemeProvider to prevent duplicate context errors since
-    // main.tsx also wraps in ThemeProvider.
+    // App includes its own ThemeProvider, AuthProvider, QueryClientProvider, and
+    // BrowserRouter — no extra wrappers needed here.
+    // (The outer ThemeProvider duplication in main.tsx was removed by Prompt 06.)
     expect(() => {
       render(
         <QueryClientProvider client={queryClient}>
