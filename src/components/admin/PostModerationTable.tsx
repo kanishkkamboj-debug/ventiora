@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { Post } from '../../types/post.types';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
-import { formatShort } from '../../utils/dateFormat';
+import { formatShort } from '../../utils/date';
 import { cn } from '../../utils/cn';
 import { resolveDisplayName } from '../../utils/anonymity';
 

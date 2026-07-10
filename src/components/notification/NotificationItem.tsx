@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Notification } from '../../types/notification.types';
-import { formatRelative } from '../../utils/dateFormat';
+import { formatRelative, formatFull, toISOString } from '../../utils/date';
 import { Bell, Heart, MessageCircle, AlertTriangle, Pin, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -53,9 +53,13 @@ export function NotificationItem({ notification }: NotificationItemProps) {
             <span className="font-semibold">{notification.actorUsername || 'System'}</span>{' '}
             {notification.message}
           </p>
-          <span className="text-xs text-muted-text mt-1 block">
+          <time
+            dateTime={toISOString(notification.createdAt)}
+            title={formatFull(notification.createdAt)}
+            className="text-xs text-muted-text mt-1 block"
+          >
             {formatRelative(notification.createdAt)}
-          </span>
+          </time>
         </div>
         {!notification.isRead && (
           <div className="shrink-0 flex items-center">

@@ -5,7 +5,7 @@ import { mockPosts, mockComments } from '../utils/mockData';
 import { Avatar } from '../components/ui/Avatar';
 import { CommentItem } from '../components/comment/CommentItem';
 import { CommentForm } from '../components/comment/CommentForm';
-import { formatDistanceToNow } from '../utils/date';
+import { formatTimeAgo, formatFull, toISOString } from '../utils/date';
 import { ArrowLeft, MessageCircle, ThumbsUp, Bookmark, Pin, Star, MoreHorizontal, Send, UserX } from 'lucide-react';
 import { ReportButton } from '../components/report/ReportButton';
 import { useAuth } from '../hooks/useAuth';
@@ -64,9 +64,13 @@ export function PostDetailPage() {
                 <span className={`font-label-md text-label-md font-semibold ${isAnonymous ? 'text-muted-text' : 'text-primary'}`}>
                   {displayName}
                 </span>
-                <span className="font-label-sm text-label-sm text-muted-text">
-                  {formatDistanceToNow(new Date(post.createdAt))} • {post.category.name} {post.category.emoji}
-                </span>
+                <time
+                  dateTime={toISOString(post.createdAt)}
+                  title={formatFull(post.createdAt)}
+                  className="font-label-sm text-label-sm text-muted-text"
+                >
+                  {formatTimeAgo(post.createdAt)} • {post.category.name} {post.category.emoji}
+                </time>
               </div>
             </div>
             

@@ -2,7 +2,7 @@ import React from 'react';
 import { ThumbsUp, MessageCircle, Bookmark, UserX, Pin, Star, MoreHorizontal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Avatar } from '../ui/Avatar';
-import { formatDistanceToNow } from '../../utils/date';
+import { formatTimeAgo, formatFull, toISOString } from '../../utils/date';
 import { motion } from 'framer-motion';
 import type { Post } from '../../types/post.types';
 import { useAuth } from '../../hooks/useAuth';
@@ -69,9 +69,13 @@ export function PostCard({ post, compact = false }: PostCardProps) {
             <span className={`font-label-sm text-label-sm font-semibold ${isAnonymous ? 'text-muted-text' : 'text-primary'}`}>
               {displayName}
             </span>
-            <span className="font-label-sm text-label-sm text-muted-text">
-              {formatDistanceToNow(new Date(post.createdAt))} • {post.category.name} {post.category.emoji}
-            </span>
+            <time
+              dateTime={toISOString(post.createdAt)}
+              title={formatFull(post.createdAt)}
+              className="font-label-sm text-label-sm text-muted-text"
+            >
+              {formatTimeAgo(post.createdAt)} • {post.category.name} {post.category.emoji}
+            </time>
           </div>
         </div>
         

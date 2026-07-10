@@ -1,6 +1,6 @@
 import React from 'react';
 import type { AuditLog } from '../../types/auditlog.types';
-import { formatFull } from '../../utils/dateFormat';
+import { formatFull } from '../../utils/date';
 import { AUDIT_ACTION_LABELS } from '../../utils/constants';
 import { cn } from '../../utils/cn';
 

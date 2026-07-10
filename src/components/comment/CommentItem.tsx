@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { Comment } from '../../types/comment.types';
 import { Avatar } from '../ui/Avatar';
 import { Button } from '../ui/Button';
-import { formatRelative } from '../../utils/dateFormat';
+import { formatRelative, formatFull, toISOString } from '../../utils/date';
 import { CommentForm } from './CommentForm';
 import { ReportButton } from '../report/ReportButton';
 import { useAuth } from '../../hooks/useAuth';
@@ -41,9 +41,13 @@ export function CommentItem({ comment, level = 0 }: CommentItemProps) {
             <span className={`font-semibold text-sm ${isAnonymous ? 'text-on-surface-variant' : 'text-on-surface'}`}>
               {displayName}
             </span>
-            <span className="text-xs text-on-surface-variant">
+            <time
+              dateTime={toISOString(comment.createdAt)}
+              title={formatFull(comment.createdAt)}
+              className="text-xs text-on-surface-variant"
+            >
               {formatRelative(comment.createdAt)}
-            </span>
+            </time>
           </div>
           <p className="text-sm text-on-surface leading-relaxed font-serif">{comment.content}</p>
         </div>

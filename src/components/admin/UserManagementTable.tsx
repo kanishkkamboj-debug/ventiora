@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { User } from '../../types/user.types';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
-import { formatShort } from '../../utils/dateFormat';
+import { formatShort } from '../../utils/date';
 import { ROLE_LABELS } from '../../utils/constants';
 import { cn } from '../../utils/cn';
 
