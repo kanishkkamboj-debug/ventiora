@@ -1,61 +1,159 @@
-import React, { useState } from 'react';
+/**
+ * NotificationBell — bell icon + dropdown for the Navbar.
+ *
+ * Designed to be mounted directly inside the Navbar actions row.
+ * The component manages its own open/close state so it stays
+ * self-contained; when real Supabase data arrives (Prompt 27) the
+ * mockNotifications reads below get swapped for an API hook.
+ *
+ * Accessibility contract:
+ *  - Bell button exposes aria-expanded + aria-haspopup="listbox"
+ *  - Unread badge has an sr-only accessible label
+ *  - Dropdown closes on Escape and on click-outside
+ *  - "Mark all read" is a real button with an onClick handler
+ */
+
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { mockNotifications } from '../../utils/mockData';
 import { NotificationItem } from './NotificationItem';
+import type { Notification } from '../../types/notification.types';
 
 export function NotificationBell() {
+  // -------------------------------------------------------------------------
+  // State — mock-backed; Prompt 27 replaces with a real API hook
+  // -------------------------------------------------------------------------
   const [open, setOpen] = useState(false);
-  const unread = mockNotifications.filter((n) => !n.isRead).length;
+  const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
 
+  const unread = notifications.filter((n) => !n.isRead).length;
+
+  // -------------------------------------------------------------------------
+  // Refs for click-outside detection
+  // -------------------------------------------------------------------------
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // -------------------------------------------------------------------------
+  // Handlers
+  // -------------------------------------------------------------------------
+  const handleToggle = useCallback(() => setOpen((o) => !o), []);
+  const handleClose  = useCallback(() => setOpen(false), []);
+
+  /** Mark all notifications as read (mock; no network call yet). */
+  const handleMarkAllRead = useCallback(() => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
+  }, []);
+
+  // Close on click-outside
+  useEffect(() => {
+    function onPointerDown(e: PointerEvent) {
+      if (open && containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        handleClose();
+      }
+    }
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, [open, handleClose]);
+
+  // Close on Escape
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (open && e.key === 'Escape') {
+        handleClose();
+      }
+    }
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [open, handleClose]);
+
+  // -------------------------------------------------------------------------
+  // Render
+  // -------------------------------------------------------------------------
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
+      {/* Bell button */}
       <button
-        onClick={() => setOpen((o) => !o)}
-        className="relative p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant"
-        aria-label={`Notifications ${unread > 0 ? `(${unread} unread)` : ''}`}
+        id="notification-bell-btn"
+        onClick={handleToggle}
+        aria-label={
+          unread > 0
+            ? `Notifications — ${unread} unread`
+            : 'Notifications'
+        }
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls="notification-dropdown"
+        className="relative p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-primary/50 outline-none transition-colors duration-200 text-on-surface-variant active:scale-95"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-        </svg>
+        <Bell className="w-5 h-5" aria-hidden="true" />
+
+        {/* Unread badge */}
         {unread > 0 && (
-          <span className="absolute top-1 right-1 w-4 h-4 bg-error text-on-error text-[10px] font-bold rounded-full flex items-center justify-center">
-            {unread > 9 ? '9+' : unread}
+          <span
+            aria-label={`${unread} unread notification${unread !== 1 ? 's' : ''}`}
+            className="absolute top-1.5 right-1.5 min-w-[1rem] h-4 bg-error text-on-error text-[10px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none pointer-events-none"
+          >
+            <span aria-hidden="true">{unread > 9 ? '9+' : unread}</span>
           </span>
         )}
       </button>
 
+      {/* Dropdown */}
       {open && (
-        <>
-          <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 top-11 z-20 w-80 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-xl animate-fadeIn overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-outline-variant">
-              <h3 className="text-sm font-bold text-on-surface">Notifications</h3>
-              {unread > 0 && (
-                <button className="text-xs text-primary hover:underline">
-                  Mark all read
-                </button>
-              )}
-            </div>
-            <div className="max-h-80 overflow-y-auto divide-y divide-outline-variant">
-              {mockNotifications.length === 0 ? (
-                <p className="text-sm text-muted-text text-center py-8">No notifications</p>
-              ) : (
-                mockNotifications
-                  .slice(0, 5)
-                  .map((n) => <NotificationItem key={n.id} notification={n} />)
-              )}
-            </div>
-            <div className="px-4 py-2 border-t border-outline-variant text-center">
-              <Link
-                to="/notifications"
-                className="text-sm text-primary hover:underline no-underline"
-                onClick={() => setOpen(false)}
+        <div
+          id="notification-dropdown"
+          role="listbox"
+          aria-label="Notifications"
+          className="absolute right-0 top-12 z-50 w-80 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-xl overflow-hidden"
+          // Prevent clicks inside the dropdown from propagating to the
+          // document-level pointerdown handler and immediately closing it
+          onPointerDown={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 py-3 border-b border-outline-variant">
+            <h2 className="text-sm font-bold text-on-surface">Notifications</h2>
+            {unread > 0 && (
+              <button
+                onClick={handleMarkAllRead}
+                className="text-xs text-primary hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary rounded"
               >
-                View all notifications
-              </Link>
-            </div>
+                Mark all read
+              </button>
+            )}
           </div>
-        </>
+
+          {/* Items */}
+          <ul
+            className="max-h-80 overflow-y-auto divide-y divide-outline-variant"
+            aria-label="Notification list"
+          >
+            {notifications.length === 0 ? (
+              <li className="text-sm text-muted-text text-center py-8">
+                No notifications
+              </li>
+            ) : (
+              notifications
+                .slice(0, 5)
+                .map((n) => (
+                  <li key={n.id} onClick={handleClose}>
+                    <NotificationItem notification={n} />
+                  </li>
+                ))
+            )}
+          </ul>
+
+          {/* Footer */}
+          <div className="px-4 py-2 border-t border-outline-variant text-center">
+            <Link
+              to="/notifications"
+              onClick={handleClose}
+              className="text-sm text-primary hover:underline"
+            >
+              View all notifications
+            </Link>
+          </div>
+        </div>
       )}
     </div>
   );

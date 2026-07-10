@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Search, Bell, Moon, Sun, Palette, Menu, X, LogOut, User as UserIcon, LayoutDashboard, MessageSquare } from 'lucide-react';
+import { Search, Moon, Sun, Palette, Menu, X, LogOut, User as UserIcon, LayoutDashboard, MessageSquare } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../hooks/useTheme';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import { Avatar } from '../ui/Avatar';
+import { NotificationBell } from '../notification/NotificationBell';
 
 export function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
@@ -90,10 +91,10 @@ export function Navbar() {
               {mode === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
             
-            <button aria-label="Notifications" className="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-primary/50 outline-none transition-colors duration-200 text-on-surface-variant active:scale-95 relative hidden sm:block">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1.5 right-1.5 h-2 w-2 bg-error rounded-full"></span>
-            </button>
+            {/* Notification Bell — self-contained dropdown */}
+            <div className="hidden sm:block">
+              <NotificationBell />
+            </div>
 
             <button aria-label="Messages" onClick={() => navigate('/messages')} className="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-primary/50 outline-none transition-colors duration-200 text-on-surface-variant active:scale-95 relative hidden sm:block">
               <MessageSquare className="w-5 h-5" />

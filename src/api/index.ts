@@ -24,7 +24,6 @@
  * | pages/MessagesPage.tsx          | (direct mock, no API yet)  | P-14   |
  * | pages/CommunityChatPage.tsx     | mockUsers                   | P-14   |
  * | components/widgets/PostCard.tsx | (reactions via mockData)    | P-08   |
- * | components/layout/Sidebar.tsx   | mockCategories, mockPosts   | P-08   |
  * | components/widgets/CategoryFilterBar.tsx | mockCategories      | P-08   |
  * | components/layout/Navbar.tsx    | mockNotifications           | P-13   |
  * | components/report/ReportModal.tsx | mockReports               | P-17   |
