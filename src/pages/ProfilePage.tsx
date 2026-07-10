@@ -5,6 +5,7 @@ import { mockUsers, mockPosts, mockComments } from '../utils/mockData';
 import { ProfileHeader } from '../components/user/ProfileHeader';
 import { UserHistoryTabs } from '../components/user/UserHistoryTabs';
 import { ProfileEditForm } from '../components/user/ProfileEditForm';
+import { authorHasUser } from '../utils/anonymity';
 
 // NOTE (Prompt 26): replace mockUsers / mockPosts / mockComments below with
 // real Supabase queries (getUserByUsername, getUserPosts, getUserComments).
@@ -17,10 +18,10 @@ export function ProfilePage() {
 
   // Derive counts from mock data (Prompt 26: these come from the API instead)
   const postCount = mockPosts.filter(
-    (p) => !p.author.isAnonymous && p.author.user.id === user?.id,
+    (p) => !p.isAnonymous && authorHasUser(p.author) && p.author.user.id === user?.id,
   ).length;
   const commentCount = mockComments.filter(
-    (c) => !c.author.isAnonymous && c.author.user.id === user?.id,
+    (c) => !c.isAnonymous && authorHasUser(c.author) && c.author.user.id === user?.id,
   ).length;
 
   // Mock "current user" detection — Prompt 16 replaces this with useAuth()

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThumbsUp, MessageCircle, Bookmark, UserX, User, Pin, Star, MoreHorizontal } from 'lucide-react';
+import { ThumbsUp, MessageCircle, Bookmark, UserX, Pin, Star, MoreHorizontal } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Avatar } from '../ui/Avatar';
 import { formatDistanceToNow } from '../../utils/date';
@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import type { Post } from '../../types/post.types';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { resolveDisplayName, resolveAvatarUrl, resolveUsername } from '../../utils/anonymity';
 
 interface PostCardProps {
   post: Post;
@@ -20,8 +21,9 @@ export function PostCard({ post, compact = false }: PostCardProps) {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
+  // Single top-level flag — never read from post.author.isAnonymous
   const isAnonymous = post.isAnonymous;
-  const displayName = isAnonymous ? 'Anonymous' : `@${!post.author.isAnonymous ? post.author.user.username : 'Anonymous'}`;
+  const displayName = resolveDisplayName(isAnonymous, post.author);
 
   const handleReact = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -55,7 +57,11 @@ export function PostCard({ post, compact = false }: PostCardProps) {
             </div>
           ) : (
             <div className="shrink-0">
-              <Avatar avatarUrl={undefined} username={!post.author.isAnonymous ? post.author.user.username : undefined} size="sm" />
+              <Avatar
+                avatarUrl={resolveAvatarUrl(isAnonymous, post.author)}
+                username={resolveUsername(isAnonymous, post.author)}
+                size="sm"
+              />
             </div>
           )}
           

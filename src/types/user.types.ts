@@ -17,13 +17,32 @@ export interface User {
   created_at: string;
 }
 
+/**
+ * An anonymous placeholder — carries no identifying user information.
+ * The single source of truth for anonymity is the top-level
+ * `post.isAnonymous` / `comment.isAnonymous` field.
+ * The `author` field is a structural union whose shape reflects
+ * only *what data is present*, not the anonymity decision itself.
+ *
+ * The `isAnonymous` discriminant was deliberately removed from both
+ * union arms in Prompt 08. Use `post.isAnonymous` at the call site.
+ */
 export interface AnonymousAuthor {
-  isAnonymous: true;
   displayName: 'Anonymous';
 }
 
+/**
+ * PostAuthor is now a plain union with no embedded anonymity flag.
+ *
+ * - `{ user: User }` — real author data is present.
+ * - `{ displayName: 'Anonymous' }` — the DB view nulled out author identity;
+ *   only the placeholder display name is available.
+ *
+ * To determine whether a post/comment is anonymous, read the top-level
+ * `isAnonymous` boolean. Never rely on the shape of `author` alone.
+ */
 export type PostAuthor =
-  | { isAnonymous: false; user: User }
+  | { user: User }
   | AnonymousAuthor;
 
 export interface UpdateProfileRequest {

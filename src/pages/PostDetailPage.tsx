@@ -9,6 +9,7 @@ import { formatDistanceToNow } from '../utils/date';
 import { ArrowLeft, MessageCircle, ThumbsUp, Bookmark, Pin, Star, MoreHorizontal, Send, UserX } from 'lucide-react';
 import { ReportButton } from '../components/report/ReportButton';
 import { useAuth } from '../hooks/useAuth';
+import { resolveDisplayName, resolveUsername } from '../utils/anonymity';
 
 export function PostDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -31,8 +32,9 @@ export function PostDetailPage() {
     );
   }
 
+  // Single top-level flag — never read from post.author.isAnonymous
   const isAnonymous = post.isAnonymous;
-  const displayName = isAnonymous ? 'Anonymous' : `@${!post.author.isAnonymous ? post.author.user.username : 'Anonymous'}`;
+  const displayName = resolveDisplayName(isAnonymous, post.author);
   
   return (
     <PageWrapper>
@@ -54,7 +56,7 @@ export function PostDetailPage() {
                 </div>
               ) : (
                 <div className="shrink-0 w-10 h-10">
-                  <Avatar username={!post.author.isAnonymous ? post.author.user.username : undefined} size="md" />
+                  <Avatar username={resolveUsername(isAnonymous, post.author)} size="md" />
                 </div>
               )}
               

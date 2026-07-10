@@ -7,6 +7,7 @@ import { CommentForm } from './CommentForm';
 import { ReportButton } from '../report/ReportButton';
 import { useAuth } from '../../hooks/useAuth';
 import { cn } from '../../utils/cn';
+import { resolveUsername } from '../../utils/anonymity';
 
 interface CommentItemProps {
   comment: Comment;
@@ -17,8 +18,9 @@ export function CommentItem({ comment, level = 0 }: CommentItemProps) {
   const [showReply, setShowReply] = useState(false);
   const { user } = useAuth();
 
-  const isAnonymous = comment.author.isAnonymous;
-  const displayName = isAnonymous ? 'Anonymous' : `@${comment.author.user.username}`;
+  // Single top-level flag — never read from comment.author.isAnonymous
+  const isAnonymous = comment.isAnonymous;
+  const displayName = isAnonymous ? 'Anonymous' : `@${resolveUsername(false, comment.author) ?? 'Anonymous'}`;
   const isMaxDepth = level >= 3;
 
   return (
@@ -29,7 +31,7 @@ export function CommentItem({ comment, level = 0 }: CommentItemProps) {
             <span className="text-on-surface-variant font-medium text-sm">?</span>
           </div>
         ) : (
-          <Avatar username={comment.author.user.username} size="sm" />
+          <Avatar username={resolveUsername(isAnonymous, comment.author)} size="sm" />
         )}
       </div>
       

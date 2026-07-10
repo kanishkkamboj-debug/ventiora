@@ -4,6 +4,7 @@ import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { formatShort } from '../../utils/dateFormat';
 import { cn } from '../../utils/cn';
+import { resolveDisplayName } from '../../utils/anonymity';
 
 interface PostModerationTableProps {
   posts: Post[];
@@ -49,7 +50,7 @@ export function PostModerationTable({ posts }: PostModerationTableProps) {
                   <p className="font-medium text-on-surface line-clamp-1 max-w-xs">{post.title}</p>
                 </td>
                 <td className="py-3 px-4 text-on-surface-variant">
-                  {post.author.isAnonymous ? 'Anonymous' : post.author.user.username}
+                  {resolveDisplayName(post.isAnonymous, post.author, '')}
                 </td>
                 <td className="py-3 px-4">
                   <span className="text-xs">

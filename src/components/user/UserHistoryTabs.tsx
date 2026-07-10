@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { mockPosts, mockComments } from '../../utils/mockData';
 import { PostCard } from '../widgets/PostCard';
 import { cn } from '../../utils/cn';
+import { authorHasUser } from '../../utils/anonymity';
 
 // NOTE (Prompt 26): replace mockPosts/mockComments here with real Supabase
 // queries (usersApi.getUserPosts, usersApi.getUserComments) keyed by userId.
@@ -17,10 +18,10 @@ export function UserHistoryTabs({ userId, username: _username }: UserHistoryTabs
   const [tab, setTab] = useState<Tab>('posts');
 
   const userPosts = mockPosts.filter(
-    (p) => !p.author.isAnonymous && p.author.user.id === userId,
+    (p) => !p.isAnonymous && authorHasUser(p.author) && p.author.user.id === userId,
   );
   const userComments = mockComments.filter(
-    (c) => !c.author.isAnonymous && c.author.user.id === userId,
+    (c) => !c.isAnonymous && authorHasUser(c.author) && c.author.user.id === userId,
   );
 
   return (
